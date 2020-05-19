@@ -11,8 +11,9 @@ public class Frame_Setup extends JFrame
 {
     Container container;
    
-    ImageIcon display_picture = new ImageIcon(this.getClass().getResource("/Pictures/display_picture.png"));
-    
+    public ImageIcon display_picture = new ImageIcon(this.getClass().getResource("/Pictures/display_picture.png"));
+    public ImageIcon login_button_icon = new ImageIcon(this.getClass().getResource("/Pictures/login_button_icon.png"));
+
     
     Frame_Setup()
     {
