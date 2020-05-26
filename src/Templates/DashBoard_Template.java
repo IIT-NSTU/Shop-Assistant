@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 
 public class DashBoard_Template extends Frame_Setup 
 {
-    public JPanel horizontal_panel,vertical_panel;
+    public JPanel horizontal_panel,vertical_panel,main_panel;
     public JButton shop_name_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button,home_button,add_cost_button,daily_income_cost_button,stock_check_button,due_check_button,staff_attendence_button,settings_button;
     
     
@@ -65,6 +65,10 @@ public class DashBoard_Template extends Frame_Setup
         vertical_panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         container.add(vertical_panel,BorderLayout.WEST);
         setVertical_Panel_Components();
+        
+        main_panel = new JPanel();
+        main_panel.setBackground(Color.WHITE);
+        container.add(main_panel,BorderLayout.CENTER);
     }
     
     public void setHorizontal_Panel_Components()

@@ -1,6 +1,7 @@
 
-package Shop_Assistant;
+package Main;
 
+import Shop_Assistant.Login_Page;
 import Templates.Starting_Template;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -51,8 +52,7 @@ public class Main_Page extends Starting_Template
         team_name_label.setHorizontalAlignment(JLabel.RIGHT);
         team_name_label.setFont(new Font("Arial",Font.BOLD,14));
         component_panel.add(team_name_label);
-        
-        
+            
         null_label = new JLabel();
         component_panel.add(null_label);    
         null_label = new JLabel();
@@ -108,8 +108,7 @@ public class Main_Page extends Starting_Template
         Thread.sleep(500);
         
         }catch(Exception e){System.out.println(e);}
-     
-        
+            
         frame.dispose();
         Login_Page login_frame = new Login_Page();
         login_frame.setVisible(true);

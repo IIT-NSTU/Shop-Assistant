@@ -609,34 +609,6 @@ public class Invoice_Generator_Template extends Frame_Setup
   
         });
         
-        quantity_textfield.addKeyListener(new KeyListener()
-        {
-            public void keyTyped(KeyEvent ke){}    
-
-            public void keyPressed(KeyEvent ke) {} 
-            
-            public void keyReleased(KeyEvent ke) 
-            {
-                if(!isDigit(ke.getKeyChar()))
-                {    
-                    JOptionPane.showMessageDialog(null, "Please Enter Valid Digits"); 
-                    quantity_textfield.setText("");
-                }
-                
-                if(product_type_combobox.getSelectedItem()==""||model_number_combobox.getSelectedItem()=="")
-                {
-                   JOptionPane.showMessageDialog(null, "Please Enter Product Type and Model Number");
-                   quantity_textfield.setText("");
-                }
-                else
-                {
-                    setPayment();
-                    setDue();
-                }
-            }
-        
-        });
-        
         per_item_price_textfield.addKeyListener(new KeyListener()
         { 
             public void keyTyped(KeyEvent ke){}  
@@ -699,6 +671,10 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
+                if(!"".equals(cart_textarea.getText()))
+                {
+                    setReminder();
+                }
                 dispose();
                 Home_Page frame = new Home_Page();
                 frame.setVisible(true);
@@ -709,6 +685,10 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
+                if(!"".equals(cart_textarea.getText()))
+                {
+                    setReminder();
+                }
                 dispose();             
                 Create_Sales_Invoice_Page frame = new Create_Sales_Invoice_Page("Customer","Sales_Database.txt");
                 frame.setVisible(true);
@@ -719,6 +699,10 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
+                if(!"".equals(cart_textarea.getText()))
+                {
+                    setReminder();
+                }
                 dispose();
                 Create_Purchase_Invoice_Page frame = new Create_Purchase_Invoice_Page("Company","Purchase_Database.txt");
                 frame.setVisible(true);  
@@ -729,6 +713,10 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
+                if(!"".equals(cart_textarea.getText()))
+                {
+                    setReminder();
+                }
                 dispose();
                 Login_Page frame = new Login_Page();
                 frame.setVisible(true);
