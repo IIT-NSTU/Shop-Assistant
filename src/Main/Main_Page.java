@@ -39,13 +39,11 @@ public class Main_Page extends Starting_Template
         null_label = new JLabel();
         component_panel.add(null_label);
         
-        
         project_name_label = new JLabel("SHOP MANAGEMENT SYSTEM");
         project_name_label.setHorizontalAlignment(JLabel.CENTER);
         project_name_label.setForeground(Color.BLACK);
         project_name_label.setFont(new Font("Arial",Font.BOLD,22));
         component_panel.add(project_name_label);
-        
         
         team_name_label = new JLabel("By Team Xenon");
         team_name_label.setForeground(Color.BLACK);
