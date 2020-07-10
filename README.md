@@ -44,6 +44,11 @@ In Digital Bangladesh regarding business sector, sometimes a shopkeeper needs so
   Stock Check Page
   ```
  ![Stock Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Stock_Check_Page.png)
+  ```
+  Due Check Page
+  ```
+ ![Due Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Due_Check_Page.png)
+
  
  ## Getting started
 **Prerequisites:**
@@ -74,7 +79,7 @@ Reach out to our team **(XENON)** at one of the following places!
  Sultana Marjan
  ```
 - Gmail at marjanmitu12@gmail.com 
-- GitHub at <a href="https://github.com/Dark-Hunter22" target="_blank">`Sultana Marjan GitHub`</a>
+- GitHub at <a href="https://github.com/marjan12" target="_blank">`Sultana Marjan GitHub`</a>
 - Facebook at <a href="https://web.facebook.com/marjan.mitu.7796" target="_blank">`Sultana Marjan Facebook`</a>
 
 ```
