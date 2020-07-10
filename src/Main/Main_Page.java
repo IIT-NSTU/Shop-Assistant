@@ -78,6 +78,8 @@ public class Main_Page extends Starting_Template
     public static void main(String[] args) 
     {
         Main_Page frame = new Main_Page();
+        frame.setUndecorated(true);
+        frame.setSize(870,450);
         frame.setVisible(true); 
        
         try{
