@@ -403,12 +403,12 @@ public class Invoice_Generator_Template extends Frame_Setup
                 
                 if("Sales_Database.txt".equals(file_name))
                 {
-                    q.append("S200000000"+","+date_textfield.getText()+","+"Income By Product Sale"+","+paid_textfield.getText()+"\n");
+                    q.append("S200000000"+","+date_textfield.getText()+","+"Income By Product Sale"+", "+model_number_combobox.getSelectedItem()+","+paid_textfield.getText()+"\n");
                     q.close();
                 }
                 else
                 {
-                    q.append("P100000000"+","+date_textfield.getText()+","+"Cost By Product Purchase"+","+paid_textfield.getText()+"\n");
+                    q.append("P100000000"+","+date_textfield.getText()+","+"Cost By Product Purchase"+", "+model_number_combobox.getSelectedItem()+","+paid_textfield.getText()+"\n");
                     q.close();
                 }
                     
