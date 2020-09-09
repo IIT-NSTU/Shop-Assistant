@@ -419,16 +419,16 @@ public class Invoice_Generator_Template extends Frame_Setup
         
         
         
-        cart_textarea.append("\n------------------------------------------------------------------------\n\n");
-        cart_textarea.append("          Date & Time : "+date_textfield.getText()+"\n");                    
-        cart_textarea.append("          ID : "+id_textfield.getText()+"\n");                                        
-        cart_textarea.append("          Product Type : "+product_type_combobox.getSelectedItem()+"\n");
-        cart_textarea.append("          Product Model : "+model_number_combobox.getSelectedItem()+"\n");
-        cart_textarea.append("          Product Quantity : "+quantity_textfield.getText()+"\n");                    
-        cart_textarea.append("          Per Item Price : "+per_item_price_textfield.getText()+"\n");
-        cart_textarea.append("          Payment : "+payment_textfield.getText()+"\n");
-        cart_textarea.append("          Paid : "+paid_textfield.getText()+"\n");
-        cart_textarea.append("          Due : "+due_textfield.getText()+"\n");
+        cart_textarea.append("\n\n---------------------------------------------------------------------------------\n\n\n");
+        cart_textarea.append("          Date & Time    :     "+date_textfield.getText()+"\n");                    
+        cart_textarea.append("          ID    :     "+id_textfield.getText()+"\n");                                        
+        cart_textarea.append("          Product Type    :     "+product_type_combobox.getSelectedItem()+"\n");
+        cart_textarea.append("          Product Model    :     "+model_number_combobox.getSelectedItem()+"\n");
+        cart_textarea.append("          Product Quantity    :     "+quantity_textfield.getText()+"\n");                    
+        cart_textarea.append("          Per Item Price    :     "+per_item_price_textfield.getText()+"\n");
+        cart_textarea.append("          Payment    :     "+payment_textfield.getText()+"\n");
+        cart_textarea.append("          Paid    :     "+paid_textfield.getText()+"\n");
+        cart_textarea.append("          Due    :     "+due_textfield.getText()+"\n");
 
         if("Sales_Database.txt".equals(file_name))
         {
@@ -749,12 +749,18 @@ public class Invoice_Generator_Template extends Frame_Setup
                     JOptionPane.showMessageDialog(null, "Please Enter All Valid Information");
                 }
                 else 
-                {   
+                { 
+                    int choice = JOptionPane.showConfirmDialog(null, "Are Your Sure?\n\n\n\n\nID : "+id_textfield.getText()+"\nDate : "+date_textfield.getText()+"\n"+keyword+" Name : "+name_textfield.getText()+"\n"+keyword+" Address : "+address_textfield.getText()+"\n"+keyword+" Mobile Number : "+mobile_number_textfield.getText()+"\nProduct Type : "+product_type_combobox.getSelectedItem()+"\nModel Number : "+model_number_combobox.getSelectedItem()+"\nQuantity : "+quantity_textfield.getText()+"\nPer Item Price : "+per_item_price_textfield.getText()+"\nPayment : "+payment_textfield.getText()+"\nPaid : "+paid_textfield.getText()+"\nDue : "+due_textfield.getText()+"\n\n\n\n\n\n","Confirm",JOptionPane.YES_NO_OPTION);
+                    
+                    
+                    if(choice == JOptionPane.YES_OPTION)
+                    {
+                    
                     if("".equals(cart_textarea.getText()))
                     {
                         cart_textarea.append("\n\n");
                        
-                        cart_textarea.append("                 Shop Name\n");                                            
+                        cart_textarea.append("                 Samir Electornics\n                 Madhabpur,Hobigonj\n                 01748987951\n\n");                                            
                         cart_textarea.append("          "+keyword+" Name : "+name_textfield.getText()+"\n");                    
                         cart_textarea.append("          "+keyword+" Address : "+address_textfield.getText()+"\n");
                         cart_textarea.append("          "+keyword+" Mobile Number : "+mobile_number_textfield.getText()+"\n");                                        
@@ -764,6 +770,8 @@ public class Invoice_Generator_Template extends Frame_Setup
                     else
                     {
                         add_to_cart(file_name);
+                    }
+                    
                     }
                 }
             }

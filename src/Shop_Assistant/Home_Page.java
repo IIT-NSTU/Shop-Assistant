@@ -113,7 +113,7 @@ public class Home_Page extends DashBoard_Template
                 String s;
                 String result = "";
                 
-                String type[] = {"Id : ","Date : ","Name : ","Address : ","Mobile Number : ","Product Type : ","Model Number : ","Quantity : ","Per Item Price : ","Total Amount : ","Due : "};
+                String type[] = {"\n          ID : ","          Date : ","          Name : ","          Address : ","          Mobile Number : ","          Product Type : ","          Model Number : ","          Quantity : ","          Per Item Price : ","          Total Amount : ","          Paid Amount : ","          Due : "};
                 
                 while((s=sales.readLine())!=null)
                 {
@@ -138,6 +138,8 @@ public class Home_Page extends DashBoard_Template
                             
                             i++;
                         }
+                        
+                        result = result + type[j]+ s.substring(start,i) + "\n";
                           
                         result = result + "\n";
                     }
@@ -168,6 +170,8 @@ public class Home_Page extends DashBoard_Template
                             
                             i++;
                         }
+                        
+                        result = result + type[j]+ s.substring(start,i) + "\n";
                           
                         result = result + "\n";
    
