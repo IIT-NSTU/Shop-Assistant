@@ -21,14 +21,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
@@ -36,15 +38,16 @@ public class Invoice_Generator_Template extends Frame_Setup
 {
     public JPanel horizontal_panel_top,main_panel,horizontal_panel_bottom,input_panel,output_panel,total_information_panel;
     public JLabel null_label,date_label,id_label,name_label,address_label,mobile_number_label,product_type_label,model_number_label,quantity_label,per_item_price_label,payment_label,paid_label,due_label,total_payment_label,total_paid_label,total_due_label;
-    public JTextField date_textfield,id_textfield,name_textfield,address_textfield,mobile_number_textfield,quantity_textfield,per_item_price_textfield,payment_textfield,paid_textfield,due_textfield,total_payment_textfield,total_paid_textfield,total_due_textfield;
+    public JTextField date_textfield,id_textfield,name_textfield,address_textfield,mobile_number_textfield,quantity_textfield,per_item_price_textfield,payment_textfield,total_payment_textfield,total_paid_textfield,total_due_textfield;
     public JButton home_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button,clear_button,add_to_cart_button,print_button,delete_button;
-    public JTextArea cart_textarea;
+    public JEditorPane cart_editorpane;
     public JScrollPane scroll;
     
     public JButton horizontal_panel_top_buttons[] = {home_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button};
     public JButton horizontal_panel_bottom_buttons[] = {clear_button,add_to_cart_button,delete_button,print_button};
     public JComboBox product_type_combobox,model_number_combobox;
     public int total_payment=0,total_paid=0,total_due=0;
+    public String HTML_Text = "";
 
     public Font font = new Font("Arial",Font.BOLD,16);
     
@@ -93,7 +96,7 @@ public class Invoice_Generator_Template extends Frame_Setup
         container.add(main_panel,BorderLayout.CENTER);
         
         input_panel = new JPanel();
-        input_panel.setLayout(new GridLayout(12,2));
+        input_panel.setLayout(new GridLayout(10,2));
         input_panel.setBackground(Color.WHITE);
         main_panel.add(input_panel);
         
@@ -105,7 +108,7 @@ public class Invoice_Generator_Template extends Frame_Setup
     public void setButtons()
     {
         String horizontal_panel_top_button_names[] = {"Home","Create Sales Invoice","Create Purchase Invoice","Log Out"};
-        String horizontal_panel_bottom_button_names[] = {"Clear","Add to Cart","Delete","Print"};
+        String horizontal_panel_bottom_button_names[] = {"Clear","Add to Cart","Finish","Print"};
         ImageIcon horizontal_panel_bottom_button_icons[]  = {clear_button_icon,add_to_cart_button_icon,delete_button_icon,print_button_icon}; 
 
         for(int i = 0 ; i < horizontal_panel_top_buttons.length ; i++)
@@ -223,58 +226,44 @@ public class Invoice_Generator_Template extends Frame_Setup
         payment_textfield.setEditable(false);
         input_panel.add(payment_textfield);
         
-        paid_label = new JLabel("Enter Paid Amount");
-        paid_label.setFont(font);
-        input_panel.add(paid_label);
-        paid_textfield = new JTextField("");
-        paid_textfield.setFont(font);
-        input_panel.add(paid_textfield);
-        
-        due_label = new JLabel("Due Amount");
-        due_label.setFont(font);
-        input_panel.add(due_label);
-        due_textfield = new JTextField("");
-        due_textfield.setFont(font);
-        due_textfield.setEditable(false);
-        input_panel.add(due_textfield);
     }
     
     public void setOutputPanel()
     {
-       cart_textarea = new JTextArea();
-       cart_textarea.setFont(new Font("Arial",Font.BOLD,14));
-       cart_textarea.setBackground(Color.white);
-       cart_textarea.setEditable(false);
-       scroll = new JScrollPane(cart_textarea);
+       cart_editorpane = new JEditorPane();
+       cart_editorpane.setContentType("text/html");
+       cart_editorpane.setText(HTML_Text);
+       cart_editorpane.setBackground(Color.white);
+       cart_editorpane.setEditable(false);
+       scroll = new JScrollPane(cart_editorpane);
        output_panel.add(scroll,BorderLayout.CENTER);
        
        total_information_panel = new JPanel();
        GridLayout gridlayout = new GridLayout(3,2);
-       gridlayout.setVgap(5);
+       gridlayout.setVgap(7);
        total_information_panel.setLayout(gridlayout);
        output_panel.add(total_information_panel,BorderLayout.SOUTH);
        
        total_payment_label = new JLabel("        Total Payment");
-       total_payment_label.setFont(font);
+       total_payment_label.setFont(new Font("Arial",Font.BOLD,18));
        total_information_panel.add(total_payment_label);
        total_payment_textfield = new JTextField("");
-       total_payment_textfield.setFont(font);
+       total_payment_textfield.setFont(new Font("Arial",Font.BOLD,18));
        total_payment_textfield.setEditable(false);
        total_information_panel.add(total_payment_textfield);
        
        total_paid_label = new JLabel("        Total Paid Amount");
-       total_paid_label.setFont(font);
+       total_paid_label.setFont(new Font("Arial",Font.BOLD,18));
        total_information_panel.add(total_paid_label);
        total_paid_textfield = new JTextField("");
-       total_paid_textfield.setFont(font);
-       total_paid_textfield.setEditable(false);
+       total_paid_textfield.setFont(new Font("Arial",Font.BOLD,18));
        total_information_panel.add(total_paid_textfield);
        
        total_due_label = new JLabel("        Total Due Amount");
-       total_due_label.setFont(font);
+       total_due_label.setFont(new Font("Arial",Font.BOLD,18));
        total_information_panel.add(total_due_label);
        total_due_textfield = new JTextField("");
-       total_due_textfield.setFont(font);
+       total_due_textfield.setFont(new Font("Arial",Font.BOLD,18));
        total_due_textfield.setEditable(false);
        total_information_panel.add(total_due_textfield);
     }
@@ -336,17 +325,17 @@ public class Invoice_Generator_Template extends Frame_Setup
     public void setDue()
     {
         try{
-        int answer = Math.round(Float.parseFloat(payment_textfield.getText())-Float.parseFloat(paid_textfield.getText()));
+        int answer = Math.round(Float.parseFloat(total_payment_textfield.getText())-Float.parseFloat(total_paid_textfield.getText()));
                         
         if(answer<0)
         {
             JOptionPane.showMessageDialog(null, "You Paid More Than Required Amount");     
-            paid_textfield.setText("");
-            due_textfield.setText("");
+            total_paid_textfield.setText("");
+            total_due_textfield.setText("");
         }
         else
         {
-            due_textfield.setText(""+answer);
+            total_due_textfield.setText(""+answer);
         }  }catch(Exception ex) {}             
     }
     
@@ -376,7 +365,7 @@ public class Invoice_Generator_Template extends Frame_Setup
     
     public boolean check_all_filled_up()
     {
-        if("".equals(id_textfield.getText())||"".equals(date_textfield.getText())||"".equals(name_textfield.getText())||"".equals(address_textfield.getText())||"".equals(mobile_number_textfield.getText())||"".equals(product_type_combobox.getSelectedItem())||"".equals(model_number_combobox.getSelectedItem())||"".equals(quantity_textfield.getText())||"".equals(per_item_price_textfield.getText())||"".equals(payment_textfield.getText())||"".equals(paid_textfield.getText())||"".equals(due_textfield.getText()))
+        if("".equals(id_textfield.getText())||"".equals(date_textfield.getText())||"".equals(name_textfield.getText())||"".equals(address_textfield.getText())||"".equals(mobile_number_textfield.getText())||"".equals(product_type_combobox.getSelectedItem())||"".equals(model_number_combobox.getSelectedItem())||"".equals(quantity_textfield.getText())||"".equals(per_item_price_textfield.getText())||"".equals(payment_textfield.getText()))
         {
             return false;
         }
@@ -386,79 +375,113 @@ public class Invoice_Generator_Template extends Frame_Setup
         }
     }
     
-    public void add_to_cart(String file_name)
+    public void add_to_file(String file_name)
     {
         try
             {
                 File f = new File(file_name);
                    
                 PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
-                p.append(id_textfield.getText()+","+date_textfield.getText()+","+name_textfield.getText()+","+address_textfield.getText()+","+mobile_number_textfield.getText()+","+product_type_combobox.getSelectedItem()+","+model_number_combobox.getSelectedItem()+","+quantity_textfield.getText()+","+per_item_price_textfield.getText()+","+payment_textfield.getText()+","+paid_textfield.getText()+","+due_textfield.getText()+"\n");
+                p.append(id_textfield.getText()+","+date_textfield.getText()+","+name_textfield.getText()+","+address_textfield.getText()+","+mobile_number_textfield.getText()+","+product_type_combobox.getSelectedItem()+","+model_number_combobox.getSelectedItem()+","+quantity_textfield.getText()+","+per_item_price_textfield.getText()+","+payment_textfield.getText()+"\n");
                 p.close();
                 
-                
-                File f2 = new File("Income_Cost_Database.txt");
-                   
-                PrintWriter q = new PrintWriter(new FileOutputStream(f2,true));
-                
-                if("Sales_Database.txt".equals(file_name))
-                {
-                    q.append("S200000000"+","+date_textfield.getText()+","+"Income By Product Sale"+", "+model_number_combobox.getSelectedItem()+","+paid_textfield.getText()+"\n");
-                    q.close();
-                }
-                else
-                {
-                    q.append("P100000000"+","+date_textfield.getText()+","+"Cost By Product Purchase"+", "+model_number_combobox.getSelectedItem()+","+paid_textfield.getText()+"\n");
-                    q.close();
-                }
-                    
             } 
             catch (FileNotFoundException ex) {}
         
-        
-        
-        
-        
-        cart_textarea.append("\n\n---------------------------------------------------------------------------------\n\n\n");
-        cart_textarea.append("          Date & Time    :     "+date_textfield.getText()+"\n");                    
-        cart_textarea.append("          ID    :     "+id_textfield.getText()+"\n");                                        
-        cart_textarea.append("          Product Type    :     "+product_type_combobox.getSelectedItem()+"\n");
-        cart_textarea.append("          Product Model    :     "+model_number_combobox.getSelectedItem()+"\n");
-        cart_textarea.append("          Product Quantity    :     "+quantity_textfield.getText()+"\n");                    
-        cart_textarea.append("          Per Item Price    :     "+per_item_price_textfield.getText()+"\n");
-        cart_textarea.append("          Payment    :     "+payment_textfield.getText()+"\n");
-        cart_textarea.append("          Paid    :     "+paid_textfield.getText()+"\n");
-        cart_textarea.append("          Due    :     "+due_textfield.getText()+"\n");
-
-        if("Sales_Database.txt".equals(file_name))
-        {
-            id_textfield.setText("S"+(Integer.parseInt(id_textfield.getText().substring(1, 10))+1));                    
-        }
-        else
-        {
-            id_textfield.setText("P"+(Integer.parseInt(id_textfield.getText().substring(1, 10))+1));                   
-        }
-        
-        setDate();
-                    
         total_payment = total_payment + Integer.parseInt(payment_textfield.getText());
         total_payment_textfield.setText(""+total_payment);
-                    
-        total_paid = total_paid + Integer.parseInt(paid_textfield.getText());
-        total_paid_textfield.setText(""+total_paid);
-                    
-        total_due = total_due + Integer.parseInt(due_textfield.getText());
-        total_due_textfield.setText(""+total_due);
-                 
+        
+        setDue();
+   
         product_type_combobox.setSelectedItem("");
         model_number_combobox.setSelectedItem("");
         quantity_textfield.setText("");
         per_item_price_textfield.setText("");
-        payment_textfield.setText("");
-        paid_textfield.setText("");
-        due_textfield.setText(""); 
+        payment_textfield.setText(""); 
     }
     
+    public void add_total_values_to_file(String file_name)
+    {
+        try
+            {
+                File f = new File(file_name);
+                   
+                PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
+                p.append("Total Payment"+total_payment_textfield.getText()+","+"Total Paid"+total_paid_textfield.getText()+","+"Total Due"+total_due_textfield.getText()+"\n");
+                p.close();
+                
+            } 
+            catch (FileNotFoundException ex) {}
+    }
+    
+ 
+    public void addHTMLbegintext(String keyword)
+    {
+        HTML_Text = HTML_Text + "<p style=\"text-align:center;font-size:18px;font-weight:bold;font-family:arial;color:red;\">Samir Electronics</p>"
+            +"<p style=\"font-family:arial;font-size:13px;font-weight:bold;text-align:center;color:blue;\">WALTON</p>"
+            + "<p style=\"text-align:center;font-size:13px;font-weight:bold;font-family:arial;\">Exclusive Showroom</p>"
+            +"<p style=\"text-align:center;font-size:9px;font-family:arial;\">Saiham Future Complex , Madhabpur , Habiganj</p>"
+            +"<p style=\"text-align:center;font-size:9px;font-family:arial;\">Mobile : 01748987951 , 01746003532</p>"
+            +"<br>"
+            +"<table width=\"100%\" style=\"font-size:8px\" >"
+            +"<tr>"
+            +"<td>"+keyword+" Name</td><td>:</td><td>"+name_textfield.getText()+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td>Invoice No</td><td>:</td><td>"+id_textfield.getText()+"</td>"
+            +"</tr>"
+            +"<tr>"
+            +"<td>"+keyword+" Address</td><td>:</td><td>"+address_textfield.getText()+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td>Date & Time</td><td>:</td><td>"+date_textfield.getText()+"</td>"
+            +"</tr>"
+            +"<tr>"
+            +"<td>"+keyword+" Mobile Number</td><td>:</td><td>"+mobile_number_textfield.getText()+"</td>"
+            + "</tr>"
+            + "</table>"
+            +"<br>"
+            +"<br>"
+            +"<br>"
+            +"<table width=\"100%\" style=\"font-size:8px\" >"
+            +"<tr>"
+            +"<td>Product Type</td><td>Product Model Number</td><td>Quantity</td><td>Product Price</td><td>Payment</td>"
+            +"</tr>"
+            +"<tr>"
+            +"<td>"+product_type_combobox.getSelectedItem()+"</td><td>"+model_number_combobox.getSelectedItem()+"</td><td>"+quantity_textfield.getText()+"</td><td>"+per_item_price_textfield.getText()+"</td><td>"+payment_textfield.getText()+"</td>"
+            +"</tr>"
+               
+            ;
+    }
+    
+    public void addHTMLmidtext()
+    {
+        HTML_Text = HTML_Text 
+                        +"<tr>"
+                        +"<td>"+product_type_combobox.getSelectedItem()+"</td><td>"+model_number_combobox.getSelectedItem()+"</td><td>"+quantity_textfield.getText()+"</td><td>"+per_item_price_textfield.getText()+"</td><td>"+payment_textfield.getText()+"</td>"
+                        +"</tr>"
+                        ;
+    }
+    
+    public void addHTMLendtext()
+    {
+        HTML_Text = HTML_Text 
+                        +"<tr>"
+                        +"<td></td><td></td><td></td><td>Total Payment</td><td>"+total_payment_textfield.getText()+"</td>"
+                        +"</tr>"
+                        +"<tr>"
+                        +"<td></td><td></td><td></td><td>Paid Amount</td><td>"+total_paid_textfield.getText()+"</td>"
+                        +"</tr>"
+                        +"<tr>"
+                        +"<td></td><td></td><td></td><td>Due Amount</td><td>"+total_due_textfield.getText()+"</td>"
+                        +"</tr>"
+                        + "</table>"
+                        +"<br>"
+                        +"<br>"
+                        +"<table width=\"100%\" style=\"font-size:10px\">"
+                        +"<tr>"
+                        +"<td>-----------------------</td><td style=\"text-align:right\">-----------------------</td>"
+                        +"</tr>"
+                        +"<tr>"
+                        +"<td>Owner's Sign</td><td style=\"text-align:right\">Customer's Sign</td>"
+                        +"</tr>"
+                        + "</table>"
+                        ;
+    }
     
     public void setListeners(String keyword,String file_name)
     {
@@ -646,7 +669,7 @@ public class Invoice_Generator_Template extends Frame_Setup
              }
         });
         
-        paid_textfield.addKeyListener(new KeyListener()
+        total_paid_textfield.addKeyListener(new KeyListener()
         {
             public void keyTyped(KeyEvent ke){}    
           
@@ -657,11 +680,10 @@ public class Invoice_Generator_Template extends Frame_Setup
                 if(!isDigit(ke.getKeyChar()))
                 {
                     JOptionPane.showMessageDialog(null, "Please Enter Valid Digits");
-                    paid_textfield.setText("");
+                    total_paid_textfield.setText("");
                 }    
                 else
                 {    
-                    setPayment();
                     setDue();
                 }
              }
@@ -671,7 +693,7 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if(!"".equals(cart_textarea.getText()))
+                if(!"".equals(cart_editorpane.getText()))
                 {
                     setReminder();
                 }
@@ -685,7 +707,7 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if(!"".equals(cart_textarea.getText()))
+                if(!"".equals(cart_editorpane.getText()))
                 {
                     setReminder();
                 }
@@ -699,7 +721,7 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if(!"".equals(cart_textarea.getText()))
+                if(!"".equals(cart_editorpane.getText()))
                 {
                     setReminder();
                 }
@@ -713,7 +735,7 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if(!"".equals(cart_textarea.getText()))
+                if(!"".equals(cart_editorpane.getText()))
                 {
                     setReminder();
                 }
@@ -735,8 +757,10 @@ public class Invoice_Generator_Template extends Frame_Setup
                 quantity_textfield.setText("");
                 per_item_price_textfield.setText("");
                 payment_textfield.setText("");
-                paid_textfield.setText("");
-                due_textfield.setText("");
+                total_payment_textfield.setText("");
+                total_paid_textfield.setText("");
+                total_due_textfield.setText("");
+                cart_editorpane.setText("");
             }
         });
         
@@ -750,26 +774,22 @@ public class Invoice_Generator_Template extends Frame_Setup
                 }
                 else 
                 { 
-                    int choice = JOptionPane.showConfirmDialog(null, "Are Your Sure?\n\n\n\n\nID : "+id_textfield.getText()+"\nDate : "+date_textfield.getText()+"\n"+keyword+" Name : "+name_textfield.getText()+"\n"+keyword+" Address : "+address_textfield.getText()+"\n"+keyword+" Mobile Number : "+mobile_number_textfield.getText()+"\nProduct Type : "+product_type_combobox.getSelectedItem()+"\nModel Number : "+model_number_combobox.getSelectedItem()+"\nQuantity : "+quantity_textfield.getText()+"\nPer Item Price : "+per_item_price_textfield.getText()+"\nPayment : "+payment_textfield.getText()+"\nPaid : "+paid_textfield.getText()+"\nDue : "+due_textfield.getText()+"\n\n\n\n\n\n","Confirm",JOptionPane.YES_NO_OPTION);
-                    
+                    int choice = JOptionPane.showConfirmDialog(null, "Are Your Sure?\n\n\n\n\nID : "+id_textfield.getText()+"\nDate : "+date_textfield.getText()+"\n"+keyword+" Name : "+name_textfield.getText()+"\n"+keyword+" Address : "+address_textfield.getText()+"\n"+keyword+" Mobile Number : "+mobile_number_textfield.getText()+"\nProduct Type : "+product_type_combobox.getSelectedItem()+"\nModel Number : "+model_number_combobox.getSelectedItem()+"\nQuantity : "+quantity_textfield.getText()+"\nPer Item Price : "+per_item_price_textfield.getText()+"\nPayment : "+payment_textfield.getText()+"\n\n\n\n\n\n","Confirm",JOptionPane.YES_NO_OPTION);
                     
                     if(choice == JOptionPane.YES_OPTION)
                     {
-                    
-                    if("".equals(cart_textarea.getText()))
+                        
+                    if(!cart_editorpane.getText().contains("WALTON"))
                     {
-                        cart_textarea.append("\n\n");
-                       
-                        cart_textarea.append("                 Samir Electornics\n                 Madhabpur,Hobigonj\n                 01748987951\n\n");                                            
-                        cart_textarea.append("          "+keyword+" Name : "+name_textfield.getText()+"\n");                    
-                        cart_textarea.append("          "+keyword+" Address : "+address_textfield.getText()+"\n");
-                        cart_textarea.append("          "+keyword+" Mobile Number : "+mobile_number_textfield.getText()+"\n");                                        
-                        add_to_cart(file_name);
-                    
+                        addHTMLbegintext(keyword);
+                        cart_editorpane.setText(HTML_Text);
+                        add_to_file(file_name);
                     }
                     else
                     {
-                        add_to_cart(file_name);
+                        addHTMLmidtext();
+                        cart_editorpane.setText(HTML_Text);
+                        add_to_file(file_name);
                     }
                     
                     }
@@ -777,19 +797,59 @@ public class Invoice_Generator_Template extends Frame_Setup
             }
         });
         
+        getButton("Finish").addActionListener(new ActionListener()
+        {     
+            public void actionPerformed(ActionEvent e)
+            {
+                if("".equals(total_payment_textfield.getText())||"".equals(total_paid_textfield.getText())||"".equals(total_due_textfield.getText())||!cart_editorpane.getText().contains("WALTON"))
+                {
+                    JOptionPane.showMessageDialog(null, "Please Enter Paid Amount");
+                }
+                else 
+                {
+                        setDue();
+                        addHTMLendtext();
+                        cart_editorpane.setText(HTML_Text);
+                        getButton("Finish").setEnabled(false);
+                        getButton("Add to Cart").setEnabled(false);
+                        getButton("Print").setEnabled(true);
+                        
+                        
+                        try {
+                        File f2 = new File("Income_Cost_Database.txt");
+                        PrintWriter q = new PrintWriter(new FileOutputStream(f2, true));
+                        if ("Sales_Database.txt".equals(file_name)) {
+                            q.append("S200000000" + "," + date_textfield.getText() + "," + "Income By Product Sale " + "," + name_textfield.getText() + "," + address_textfield.getText() + "," + mobile_number_textfield.getText() + "," + total_paid_textfield.getText() + "\n");
+                            q.close();
+                        } else {
+                            q.append("P100000000" + "," + date_textfield.getText() + "," + "Cost By Product Purchase " + "," + name_textfield.getText() + "," + address_textfield.getText() + "," + mobile_number_textfield.getText() + "," + total_paid_textfield.getText() + "\n");
+                            q.close();
+                        }
+                    } catch (FileNotFoundException ex) {
+                    }
+                        
+                    add_total_values_to_file(file_name);   
+                } 
+                
+            }
+        });
+        
+        getButton("Print").setEnabled(false);
+        
         getButton("Print").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if("".equals(cart_textarea.getText()))
+                if("".equals(cart_editorpane.getText()))
                 {
                     JOptionPane.showMessageDialog(null, "Please Add Something To The Cart");
                 }
                 else 
                 {
-                   try {
-                        cart_textarea.print();
-                    } catch (PrinterException ex) {}    
+                    try {
+                        cart_editorpane.print();
+                    } catch (PrinterException ex) {
+                    }   
                 }    
             }
         });    
