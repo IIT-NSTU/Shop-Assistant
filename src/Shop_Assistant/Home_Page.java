@@ -111,10 +111,7 @@ public class Home_Page extends DashBoard_Template
                 
                 BufferedReader sales = new BufferedReader(new FileReader("Sales_Database.txt"));
                 String s;
-                String result = "";
-                
-                String type[] = {"\n          ID : ","          Date : ","          Name : ","          Address : ","          Mobile Number : ","          Product Type : ","          Model Number : ","          Quantity : ","          Per Item Price : ","          Total Amount : ","          Paid Amount : ","          Due : "};
-                
+                                
                 while((s=sales.readLine())!=null)
                 {
                     if(s.contains(search_textfield.getText()))

@@ -1,7 +1,6 @@
 
 package Shop_Assistant;
 
-
 import Templates.Invoice_Generator_Template;
 import java.awt.Color;
 import java.awt.Font;

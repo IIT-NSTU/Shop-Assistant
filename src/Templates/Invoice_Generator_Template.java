@@ -21,8 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -48,6 +46,7 @@ public class Invoice_Generator_Template extends Frame_Setup
     public JComboBox product_type_combobox,model_number_combobox;
     public int total_payment=0,total_paid=0,total_due=0;
     public String HTML_Text = "";
+    public String raw_data = "";
 
     public Font font = new Font("Arial",Font.BOLD,16);
     
@@ -375,19 +374,8 @@ public class Invoice_Generator_Template extends Frame_Setup
         }
     }
     
-    public void add_to_file(String file_name)
+    public void add_to_cart(String file_name)
     {
-        try
-            {
-                File f = new File(file_name);
-                   
-                PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
-                p.append(id_textfield.getText()+","+date_textfield.getText()+","+name_textfield.getText()+","+address_textfield.getText()+","+mobile_number_textfield.getText()+","+product_type_combobox.getSelectedItem()+","+model_number_combobox.getSelectedItem()+","+quantity_textfield.getText()+","+per_item_price_textfield.getText()+","+payment_textfield.getText()+"\n");
-                p.close();
-                
-            } 
-            catch (FileNotFoundException ex) {}
-        
         total_payment = total_payment + Integer.parseInt(payment_textfield.getText());
         total_payment_textfield.setText(""+total_payment);
         
@@ -398,20 +386,6 @@ public class Invoice_Generator_Template extends Frame_Setup
         quantity_textfield.setText("");
         per_item_price_textfield.setText("");
         payment_textfield.setText(""); 
-    }
-    
-    public void add_total_values_to_file(String file_name)
-    {
-        try
-            {
-                File f = new File(file_name);
-                   
-                PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
-                p.append("Total Payment"+total_payment_textfield.getText()+","+"Total Paid"+total_paid_textfield.getText()+","+"Total Due"+total_due_textfield.getText()+"\n");
-                p.close();
-                
-            } 
-            catch (FileNotFoundException ex) {}
     }
     
  
@@ -446,6 +420,8 @@ public class Invoice_Generator_Template extends Frame_Setup
             +"</tr>"
                
             ;
+        
+        raw_data = raw_data + id_textfield.getText() +","+ date_textfield.getText() +","+ name_textfield.getText() +","+ address_textfield.getText() +","+ mobile_number_textfield.getText() +","+ product_type_combobox.getSelectedItem() +","+ model_number_combobox.getSelectedItem() +","+ quantity_textfield.getText() +","+ per_item_price_textfield.getText() +","+ payment_textfield.getText()+"," ;
     }
     
     public void addHTMLmidtext()
@@ -455,9 +431,12 @@ public class Invoice_Generator_Template extends Frame_Setup
                         +"<td>"+product_type_combobox.getSelectedItem()+"</td><td>"+model_number_combobox.getSelectedItem()+"</td><td>"+quantity_textfield.getText()+"</td><td>"+per_item_price_textfield.getText()+"</td><td>"+payment_textfield.getText()+"</td>"
                         +"</tr>"
                         ;
+        
+        raw_data = raw_data + product_type_combobox.getSelectedItem() +","+ model_number_combobox.getSelectedItem() +","+ quantity_textfield.getText() +","+ per_item_price_textfield.getText() +","+ payment_textfield.getText()+"," ;
+
     }
     
-    public void addHTMLendtext()
+    public void addHTMLendtext(String keyword)
     {
         HTML_Text = HTML_Text 
                         +"<tr>"
@@ -477,10 +456,12 @@ public class Invoice_Generator_Template extends Frame_Setup
                         +"<td>-----------------------</td><td style=\"text-align:right\">-----------------------</td>"
                         +"</tr>"
                         +"<tr>"
-                        +"<td>Owner's Sign</td><td style=\"text-align:right\">Customer's Sign</td>"
+                        +"<td>Owner's Sign</td><td style=\"text-align:right\">"+keyword+"'s Sign</td>"
                         +"</tr>"
                         + "</table>"
                         ;
+        
+        raw_data = raw_data + total_payment_textfield.getText() +","+total_paid_textfield.getText() +","+total_due_textfield.getText() +"\n";
     }
     
     public void setListeners(String keyword,String file_name)
@@ -783,13 +764,13 @@ public class Invoice_Generator_Template extends Frame_Setup
                     {
                         addHTMLbegintext(keyword);
                         cart_editorpane.setText(HTML_Text);
-                        add_to_file(file_name);
+                        add_to_cart(file_name);
                     }
                     else
                     {
                         addHTMLmidtext();
                         cart_editorpane.setText(HTML_Text);
-                        add_to_file(file_name);
+                        add_to_cart(file_name);
                     }
                     
                     }
@@ -808,7 +789,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                 else 
                 {
                         setDue();
-                        addHTMLendtext();
+                        addHTMLendtext(keyword);
                         cart_editorpane.setText(HTML_Text);
                         getButton("Finish").setEnabled(false);
                         getButton("Add to Cart").setEnabled(false);
@@ -828,7 +809,16 @@ public class Invoice_Generator_Template extends Frame_Setup
                     } catch (FileNotFoundException ex) {
                     }
                         
-                    add_total_values_to_file(file_name);   
+            try
+            {
+                File f = new File(file_name);
+                   
+                PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
+                p.append(raw_data);
+                p.close();
+                
+            } 
+            catch (FileNotFoundException ex) {}
                 } 
                 
             }
