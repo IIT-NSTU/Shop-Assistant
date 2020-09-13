@@ -84,7 +84,7 @@ public class Login_Page extends Starting_Template
         
             public void actionPerformed(ActionEvent e)
             {
-                if("Prosanto".equals(username_textfield.getText())&&"1234".equals(password_field.getText()))
+                if("Samir".equals(username_textfield.getText())&&"1234".equals(password_field.getText()))
                 {
                     dispose();
                     Home_Page frame = new Home_Page();

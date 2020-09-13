@@ -14,8 +14,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -24,8 +26,9 @@ public class Stock_Check_Page extends DashBoard_Template
 {
     public JPanel output_panel;
     public JLabel product_type_label,model_number_label;
-    public JTextField show_quantity_textfield,total_item_textfield;
-    public JComboBox product_type_combobox,model_number_combobox;        
+    public JTextField show_quantity_textfield;
+    public JComboBox product_type_combobox,model_number_combobox;
+    public JButton total_item_button;
     
     public Stock_Check_Page()
     {
@@ -93,11 +96,9 @@ public class Stock_Check_Page extends DashBoard_Template
         show_quantity_textfield.setBackground(Color.WHITE);
         output_panel.add(show_quantity_textfield);
         
-        total_item_textfield = new JTextField();
-        total_item_textfield.setFont(new Font("Arial",Font.BOLD,16));
-        total_item_textfield.setEditable(false);
-        total_item_textfield.setBackground(Color.WHITE);
-        output_panel.add(total_item_textfield);  
+        total_item_button = new JButton("Total");
+        total_item_button.setFont(new Font("Arial",Font.BOLD,16));
+        output_panel.add(total_item_button);  
     }
     
     public void setStockCheckFeatures()
@@ -123,7 +124,7 @@ public class Stock_Check_Page extends DashBoard_Template
                 }
          
                 char demo[] = result.toCharArray();
-                int i=0,model_count=0;
+                int i=0;
                 
                 while(i!=demo.length)
                 {
@@ -131,16 +132,15 @@ public class Stock_Check_Page extends DashBoard_Template
                     if(demo[i]=='.')
                     {
                         model_number_combobox.addItem(answer);
-                        model_count = model_count + getTotalStock(answer,"Purchase_Database.txt","Sales_Database.txt");
                         answer="";
                     }
                     i++;
                 }
                 
-                total_item_textfield.setText("Total "+product_type_combobox.getSelectedItem()+"  =  "+model_count);
+                total_item_button.setText("Total "+product_type_combobox.getSelectedItem());
                                 
                 
-            }catch(IOException ex){System.out.println(ex);}
+            }catch(Exception ex){System.out.println(ex);}
                
             }
   
@@ -152,6 +152,29 @@ public class Stock_Check_Page extends DashBoard_Template
             public void actionPerformed(ActionEvent e)
             {
                 show_quantity_textfield.setText(""+getTotalStock((String)model_number_combobox.getSelectedItem(),"Purchase_Database.txt","Sales_Database.txt"));
+            }
+        });
+        
+        total_item_button.addActionListener(new ActionListener()
+        {     
+            public void actionPerformed(ActionEvent e)
+            {
+                if("".equals(product_type_combobox.getSelectedItem())||product_type_combobox.getSelectedItem()==null)
+                {
+                    JOptionPane.showMessageDialog(null, "Please Select Product Type");
+                }
+                else
+                {
+                    int i,model_count=0;
+                    for(i=1;i <= model_number_combobox.getItemCount();i++)
+                    {
+                        try{
+                        model_count = model_count + getTotalStock(model_number_combobox.getItemAt(i).toString(),"Purchase_Database.txt","Sales_Database.txt");
+                        }catch(Exception ex){System.out.println(ex);}
+                        total_item_button.setText("Total "+product_type_combobox.getSelectedItem()+" is "+model_count);
+                    }
+                    
+                }
             }
         });
     

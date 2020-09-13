@@ -76,7 +76,7 @@ public class Frame_Setup extends JFrame
     
     public String[] setProductTypes()
     {
-        String product_type[] = new String[30];
+        String product_type[] = new String[80];
         
         try{                    
                 BufferedReader br = new BufferedReader(new FileReader("Product_Type_&_Model_List.txt"));
