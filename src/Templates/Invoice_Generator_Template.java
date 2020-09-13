@@ -391,11 +391,16 @@ public class Invoice_Generator_Template extends Frame_Setup
  
     public void addHTMLbegintext(String keyword)
     {
-        HTML_Text = HTML_Text + "<p style=\"text-align:center;font-size:18px;font-weight:bold;font-family:arial;color:red;\">Samir Electronics</p>"
-            +"<p style=\"font-family:arial;font-size:13px;font-weight:bold;text-align:center;color:blue;\">WALTON</p>"
-            + "<p style=\"text-align:center;font-size:13px;font-weight:bold;font-family:arial;\">Exclusive Showroom</p>"
-            +"<p style=\"text-align:center;font-size:9px;font-family:arial;\">Saiham Future Complex , Madhabpur , Habiganj</p>"
-            +"<p style=\"text-align:center;font-size:9px;font-family:arial;\">Mobile : 01748987951 , 01746003532</p>"
+        HTML_Text = HTML_Text 
+            
+            +"<table width=\"100%\">" 
+            +"<tr style=\"text-align:center;font-size:18px;font-weight:bold;font-family:arial;color:red;\">Samir Electronics</tr>"
+            +"<tr style=\"font-family:arial;font-size:13px;font-weight:bold;text-align:center;color:blue;\">WALTON</tr>"
+            + "<tr style=\"text-align:center;font-size:13px;font-weight:bold;font-family:arial;\">Exclusive Showroom</tr>"
+            +"<tr style=\"text-align:center;font-size:9px;font-family:arial;\">Saiham Future Complex , Madhabpur , Habiganj</tr>"
+            +"<tr style=\"text-align:center;font-size:9px;font-family:arial;\">Mobile : 01748987951 , 01746003532</tr>"
+            +"<tr style=\"text-align:center;font-size:7px;font-family:arial;\">Money Receipt</tr>"
+            +"</table>"
             +"<br>"
             +"<table width=\"100%\" style=\"font-size:8px\" >"
             +"<tr>"
@@ -461,7 +466,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                         + "</table>"
                         ;
         
-        raw_data = raw_data + total_payment_textfield.getText() +","+total_paid_textfield.getText() +","+total_due_textfield.getText() +"\n";
+        raw_data = raw_data + total_payment_textfield.getText() +","+total_paid_textfield.getText() +","+total_due_textfield.getText();
     }
     
     public void setListeners(String keyword,String file_name)
@@ -808,13 +813,14 @@ public class Invoice_Generator_Template extends Frame_Setup
                         }
                     } catch (FileNotFoundException ex) {
                     }
-                        
+            
+                    
             try
             {
                 File f = new File(file_name);
                    
                 PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
-                p.append(raw_data);
+                p.append(raw_data+"\n");
                 p.close();
                 
             } 

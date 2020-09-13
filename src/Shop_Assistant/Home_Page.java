@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,9 +26,10 @@ public class Home_Page extends DashBoard_Template
     public JPanel search_panel,input_panel;
     public JLabel search_label;
     public JTextField search_textfield;
-    public JButton search_button;
-    public JTextArea show_details_textarea;
+    public JButton search_button,clear_button;
+    public JEditorPane show_details_editorpane;
     public JScrollPane scroll;
+    public String HTML_Text = "";
     
     public Home_Page()
     {
@@ -71,7 +73,7 @@ public class Home_Page extends DashBoard_Template
     public void setSearchPanel()
     {
         input_panel = new JPanel();
-        input_panel.setLayout(new GridLayout(3,1));
+        input_panel.setLayout(new GridLayout(2,2));
         search_panel.add(input_panel);
         
         search_label = new JLabel("Enter Your Keyword");
@@ -84,15 +86,97 @@ public class Home_Page extends DashBoard_Template
         search_textfield.setFont(new Font("Arial",Font.BOLD,16));
         input_panel.add(search_textfield);
         
+        clear_button = new JButton("Clear");
+        clear_button.setFont(new Font("Arial",Font.BOLD,16));
+        input_panel.add(clear_button);
+        
         search_button = new JButton("Search");
         search_button.setFont(new Font("Arial",Font.BOLD,16));
         input_panel.add(search_button);
         
-        show_details_textarea = new JTextArea();
-        show_details_textarea.setFont(new Font("Arial",Font.BOLD,16));
-        show_details_textarea.setEditable(false);
-        scroll = new JScrollPane(show_details_textarea);
+        show_details_editorpane = new JEditorPane();
+        show_details_editorpane.setContentType("text/html");
+        show_details_editorpane.setText(HTML_Text);
+        show_details_editorpane.setEditable(false);
+        scroll = new JScrollPane(show_details_editorpane);
         search_panel.add(scroll);  
+    }
+    
+    public void setHTMLText(String filename)
+    {
+        try{
+                
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            String s;
+                  
+            while((s=br.readLine())!=null)
+            {
+                if(s.contains(search_textfield.getText()))
+                {
+                    char demo[] = s.toCharArray();
+                    String data_array[] = new String[s.length()];
+                    
+                    int i = 0 , j = 0, start = 0 , end;
+                    
+                    while(i!=demo.length)
+                    {
+                        if(demo[i]==',')
+                        {
+                            end = i;
+                            
+                            data_array[j] = s.substring(start, end);
+                            j++;
+                            
+                            start = end + 1;
+                        }
+                        i++;
+                    }
+                    
+                    data_array[j] = s.substring(start, i);
+                    
+                    int array_size = j;
+                    
+                    HTML_Text = HTML_Text
+                        +"<table width = \"100%\" style=\"font-family:monospaced;font-weight:bold;font-size:13px;\" >"    
+                        ;
+                    
+                    data_array[0] = "  Invoice  Id  :  " + data_array[0];
+                    data_array[1] = "  Date & Time  :  " + data_array[1];
+                    data_array[2] = "  Name  :  " + data_array[2];
+                    data_array[3] = "  Address  :  " + data_array[3];
+                    data_array[4] = "  Mobile Number  :  " + data_array[4];
+                    data_array[5] = "  Product Type  :  " + data_array[5];
+                    data_array[6] = "  Model Number  :  " + data_array[6];
+                    data_array[7] = "  Quantity  :  " + data_array[7];
+                    data_array[8] = "  Per Item Price  :  " + data_array[8];
+                    data_array[9] = "  Payment  :  " + data_array[9];
+                    data_array[array_size-2] = "  Total Payment  :  " + data_array[array_size-2];
+                    data_array[array_size-1] = "  Paid Amount  :  " + data_array[array_size-1];
+                    data_array[array_size] = "  Due Amoount  :  " + data_array[array_size];
+                    
+                    
+                    for(i=0; i<= array_size ;i++)
+                    {
+                        if(data_array[i].contains(search_textfield.getText()))
+                        {
+                            HTML_Text = HTML_Text
+                           +"<tr style=\"color:red;font-weight:bold;\"><td>"+data_array[i].substring(0,data_array[i].indexOf(":"))+"</td><td>:</td><td>"+data_array[i].substring(data_array[i].indexOf(":")+1,data_array[i].length())+"</td></tr>";
+                        }
+                        else
+                        {
+                            HTML_Text = HTML_Text
+                           +"<tr><td>"+data_array[i].substring(0,data_array[i].indexOf(":"))+"</td><td>:</td><td>"+data_array[i].substring(data_array[i].indexOf(":")+1,data_array[i].length())+"</td></tr>";
+                        }
+                    }
+                    
+                    HTML_Text = HTML_Text    
+                        +"</table><br><br>"
+                            ;    
+                }    
+            }
+       
+        }catch(Exception ex) { System.out.println(ex);}
+            
     }
     
     public void setSeachFeatures()
@@ -107,89 +191,21 @@ public class Home_Page extends DashBoard_Template
             }
             else
             {
-                try{
-                
-                BufferedReader sales = new BufferedReader(new FileReader("Sales_Database.txt"));
-                String s;
-                                
-                while((s=sales.readLine())!=null)
-                {
-                    if(s.contains(search_textfield.getText()))
-                    {
-                        char demo[] = s.toCharArray();
-                        int i = 0,j = 0;
-                        int start = 0,end;
-   
-                        while(i!=demo.length)
-                        {
-                            if(demo[i]==',')
-                            {
-                                end = i ;
-           
-                                result = result + type[j]+ s.substring(start,end) + "\n";
-                                
-                                j++;
-                                
-                                start = i + 1;
-                            }
-                            
-                            i++;
-                        }
-                        
-                        result = result + type[j]+ s.substring(start,i) + "\n";
-                          
-                        result = result + "\n";
-                    }
-                }
-                
-                BufferedReader purchase = new BufferedReader(new FileReader("Purchase_Database.txt"));
-                
-                while((s=purchase.readLine())!=null)
-                {
-                    if(s.contains(search_textfield.getText()))
-                    {
-                        char demo[] = s.toCharArray();
-                        int i = 0,j = 0;
-                        int start = 0,end;
-   
-                        while(i!=demo.length)
-                        {
-                            if(demo[i]==',')
-                            {
-                                end = i ;
-           
-                                result = result + type[j]+ s.substring(start,end) + "\n";
-                                
-                                j++;
-                                
-                                start = i + 1;
-                            }
-                            
-                            i++;
-                        }
-                        
-                        result = result + type[j]+ s.substring(start,i) + "\n";
-                          
-                        result = result + "\n";
-   
-                    }
-                }
-                
-                if("".equals(result))
-                {
-                    JOptionPane.showMessageDialog(null,"No Information Found");
-                }
-                else
-                {
-                    show_details_textarea.setText(result);
-                }    
-                    
-                }catch(Exception ex) { System.out.println(ex);}
+                setHTMLText("Sales_Database.txt");
+                setHTMLText("Purchase_Database.txt");
+                show_details_editorpane.setText(HTML_Text);
+                HTML_Text = "";
             }
-             
-         
         }
         
+        });
+        
+        clear_button.addActionListener(new ActionListener(){
+        
+        public void actionPerformed(ActionEvent e)
+        {
+            show_details_editorpane.setText("");
+        }
         
         });
         
