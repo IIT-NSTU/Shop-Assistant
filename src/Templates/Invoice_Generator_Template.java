@@ -604,7 +604,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                 
                 while(i!=demo.length)
                 {
-                    answer=answer+demo[i];
+                    answer = answer + demo[i];
                     if(demo[i]=='.')
                     {
                         model_number_combobox.addItem(answer);

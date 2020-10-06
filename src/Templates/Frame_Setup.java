@@ -134,22 +134,16 @@ public class Frame_Setup extends JFrame
                 text = text + (char)s;
             }
             
-            
             Pattern pattern = Pattern.compile(model_number);
             Matcher matcher = pattern.matcher(text);
             
-            
             while(matcher.find())
-            {
-                int i;
-                String mn="";             
+            {                
+                String demo_text = text.substring(matcher.end()+1, matcher.end()+10);             
                 
-                for(i=(matcher.end()+1);text.charAt(i)!=(char)44;i++)
-                {
-                    mn = mn + text.charAt(i);
-                }
+                String result = demo_text.substring(0, demo_text.indexOf(","));
                 
-                modelCount = modelCount+Integer.parseInt(mn);               
+                modelCount = modelCount+Integer.parseInt(result);               
                 found = true;
             }
       
