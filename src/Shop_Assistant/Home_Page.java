@@ -136,6 +136,8 @@ public class Home_Page extends DashBoard_Template
                     
                     int array_size = j;
                     
+                    
+                    
                     HTML_Text = HTML_Text
                         +"<table width = \"100%\" style=\"font-family:monospaced;font-weight:bold;font-size:13px;\" >"    
                         ;
@@ -152,26 +154,48 @@ public class Home_Page extends DashBoard_Template
                     data_array[9] = "  Payment  :  " + data_array[9];
                     data_array[array_size-2] = "  Total Payment  :  " + data_array[array_size-2];
                     data_array[array_size-1] = "  Paid Amount  :  " + data_array[array_size-1];
-                    data_array[array_size] = "  Due Amoount  :  " + data_array[array_size];
+                    data_array[array_size] = "  Due Amount  :  " + data_array[array_size];
                     
-                    
+                    for(int p = 0;p<=array_size;p++)
+                    {
+                        System.out.println(data_array[p]);
+                    }
+                   
                     for(i=0; i<= array_size ;i++)
                     {
                         if(data_array[i].contains(search_textfield.getText()))
                         {
-                            HTML_Text = HTML_Text
-                           +"<tr style=\"color:red;font-weight:bold;\"><td>"+data_array[i].substring(0,data_array[i].indexOf(":"))+"</td><td>:</td><td>"+data_array[i].substring(data_array[i].indexOf(":")+1,data_array[i].length())+"</td></tr>";
-                        }
+                            if(data_array[i].contains(":"))
+                            {
+                                HTML_Text = HTML_Text
+                                +"<tr style=\"color:red;font-weight:bold;\"><td>"+data_array[i].substring(0,data_array[i].indexOf(":"))+"</td><td>:</td><td>"+data_array[i].substring(data_array[i].indexOf(":")+1,data_array[i].length())+"</td></tr>";
+                            }
+                            else
+                            {
+                                HTML_Text = HTML_Text
+                                +"<tr style=\"color:red;font-weight:bold;\"><td></td><td>:</td><td>"+data_array[i]+"</td></tr>";
+                            }                            
+                        }    
                         else
                         {
-                            HTML_Text = HTML_Text
-                           +"<tr><td>"+data_array[i].substring(0,data_array[i].indexOf(":"))+"</td><td>:</td><td>"+data_array[i].substring(data_array[i].indexOf(":")+1,data_array[i].length())+"</td></tr>";
+                            if(data_array[i].contains(":"))
+                            {
+                                HTML_Text = HTML_Text
+                                +"<tr><td>"+data_array[i].substring(0,data_array[i].indexOf(":"))+"</td><td>:</td><td>"+data_array[i].substring(data_array[i].indexOf(":")+1,data_array[i].length())+"</td></tr>";
+                            }
+                            else
+                            {
+                                HTML_Text = HTML_Text
+                                +"<tr><td></td><td>:</td><td>"+data_array[i]+"</td></tr>";
+                            }
                         }
                     }
                     
                     HTML_Text = HTML_Text    
                         +"</table><br><br>"
-                            ;    
+                            ; 
+                    
+                    
                 }    
             }
        
