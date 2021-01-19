@@ -94,7 +94,7 @@ Reach out to our team **(XENON)** at one of the following places!
  ``` 
 Date : 8th August 2020
  ```
- From This date our software will be used by Samir Electronics and We will try to fullfill their requirements and update our software to become more faster.
+ From This date our software will be used by Samir Electronics and We will try to fulfill their requirements and update our software to become more faster.
   
     
     
