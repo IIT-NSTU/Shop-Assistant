@@ -69,7 +69,8 @@ public class Invoice_Generator_Template extends Frame_Setup
     
     public void setContainer()
     {
-        super.setContainer();
+        //Method Overriding Contept Used
+        super.setContainer();  //Here we get setContainer() of parrent class
         container.setLayout(new BorderLayout(15,0));
     }
     
