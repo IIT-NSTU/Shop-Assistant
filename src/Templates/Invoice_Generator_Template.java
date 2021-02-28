@@ -619,6 +619,15 @@ public class Invoice_Generator_Template extends Frame_Setup
   
         });
         
+        model_number_combobox.addActionListener(new ActionListener(){
+        
+        public void actionPerformed(ActionEvent e)
+            {
+                quantity_textfield.setText("");
+            }
+        
+        });
+        
         per_item_price_textfield.addKeyListener(new KeyListener()
         { 
             public void keyTyped(KeyEvent ke){}  
