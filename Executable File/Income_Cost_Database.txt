@@ -1,0 +1,3 @@
+P100000000,07/02/2021 Sun 08:18:04 PM,Cost By Product Purchase ,Walton ,Dhaka,01793222825,240000
+P100000000,07/02/2021 Sun 08:26:03 PM,Cost By Electricity Bill,1500
+P100000001,07/02/2021 Sun 08:28:09 PM,Cost By Company Due Amount,100

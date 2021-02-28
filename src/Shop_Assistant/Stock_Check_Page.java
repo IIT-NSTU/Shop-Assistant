@@ -165,11 +165,16 @@ public class Stock_Check_Page extends DashBoard_Template
                 }
                 else
                 {
+                    try{
+                        
                     int i,model_count=0,stock;
                     
                     for( i = 1 ; i <= model_number_combobox.getItemCount() ; i++ )
                     {
-                        try{
+                        
+                            
+                            System.out.println("Model Number : "+model_number_combobox.getItemAt(i).toString()+" Stock Number : "+getTotalStock(model_number_combobox.getItemAt(i).toString(),"Purchase_Database.txt","Sales_Database.txt"));
+                            
                             stock = getTotalStock(model_number_combobox.getItemAt(i).toString(),"Purchase_Database.txt","Sales_Database.txt");
                         
                             if(stock!=0)
@@ -177,10 +182,12 @@ public class Stock_Check_Page extends DashBoard_Template
                                 model_count = model_count + stock;
                             }
                             
-                        }catch(Exception ex){System.out.println(ex);}
                         total_item_button.setText("Total "+product_type_combobox.getSelectedItem()+" is "+model_count);
                     }
                     
+                    
+                    
+                    }catch(Exception ex){System.out.println(ex);}
                 }
             }
         });

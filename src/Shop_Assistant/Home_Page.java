@@ -106,15 +106,15 @@ public class Home_Page extends DashBoard_Template
     {
         try{
                 
-            BufferedReader br = new BufferedReader(new FileReader(filename));
-            String s;
+            BufferedReader br_sales_or_purchase = new BufferedReader(new FileReader(filename));
+            String str_sales_or_purchase;
                   
-            while((s=br.readLine())!=null)
+            while((str_sales_or_purchase = br_sales_or_purchase.readLine())!=null)
             {
-                if(s.contains(search_textfield.getText()))
+                if(str_sales_or_purchase.contains(search_textfield.getText()))
                 {
-                    char demo[] = s.toCharArray();
-                    String data_array[] = new String[s.length()];
+                    char demo[] = str_sales_or_purchase.toCharArray();
+                    String data_array[] = new String[str_sales_or_purchase.length()];
                     
                     int i = 0 , j = 0, start = 0 , end;
                     
@@ -124,7 +124,7 @@ public class Home_Page extends DashBoard_Template
                         {
                             end = i;
                             
-                            data_array[j] = s.substring(start, end);
+                            data_array[j] = str_sales_or_purchase.substring(start, end);
                             j++;
                             
                             start = end + 1;
@@ -132,12 +132,11 @@ public class Home_Page extends DashBoard_Template
                         i++;
                     }
                     
-                    data_array[j] = s.substring(start, i);
+                    data_array[j] = str_sales_or_purchase.substring(start, i);
                     
-                    int array_size = j;
+                    int array_size_to_due = j;
                     
-                    
-                    
+                   
                     HTML_Text = HTML_Text
                         +"<table width = \"100%\" style=\"font-family:monospaced;font-weight:bold;font-size:13px;\" >"    
                         ;
@@ -152,15 +151,39 @@ public class Home_Page extends DashBoard_Template
                     data_array[7] = "  Quantity  :  " + data_array[7];
                     data_array[8] = "  Per Item Price  :  " + data_array[8];
                     data_array[9] = "  Payment  :  " + data_array[9];
-                    data_array[array_size-2] = "  Total Payment  :  " + data_array[array_size-2];
-                    data_array[array_size-1] = "  Paid Amount  :  " + data_array[array_size-1];
-                    data_array[array_size] = "  Due Amount  :  " + data_array[array_size];
+                    data_array[array_size_to_due-2] = "  Total Payment  :  " + data_array[array_size_to_due - 2];
+                    data_array[array_size_to_due-1] = "  Paid Amount  :  " + data_array[array_size_to_due - 1];
+                    data_array[array_size_to_due] = "  Due Amount  :  " + data_array[array_size_to_due];
                     
-                    for(int p = 0;p<=array_size;p++)
+                    BufferedReader br_income_cost = new BufferedReader(new FileReader("Income_Cost_Database.txt"));
+                    String str_income_cost;
+                    
+                    int due_amount = Integer.parseInt(data_array[array_size_to_due].substring(17, data_array[array_size_to_due].length()));
+                    int m = array_size_to_due + 1;
+                    
+                    while((str_income_cost = br_income_cost.readLine())!=null)
                     {
-                        System.out.println(data_array[p]);
+                        if(str_sales_or_purchase.substring(0, 10).equals(str_income_cost.substring(0, 10)))
+                        {
+                            if(str_income_cost.charAt(0)=='P')
+                            {
+                                int current_payment = Integer.parseInt(str_income_cost.substring(65, str_income_cost.length()));
+                                data_array[m] = "  Due Amount  :  "+(due_amount - current_payment)+"("+str_income_cost.substring(11, 21)+")  Paid "+current_payment;
+                                due_amount = due_amount - current_payment;
+                                m++;
+                            }
+                            if(str_income_cost.charAt(0)=='S')
+                            {
+                                int current_payment = Integer.parseInt(str_income_cost.substring(68, str_income_cost.length()));
+                                data_array[m] = "  Due Amount  :  "+(due_amount - current_payment)+"("+str_income_cost.substring(11, 21)+")  Paid "+current_payment;
+                                due_amount = due_amount - current_payment;
+                                m++;
+                            }
+                        }
                     }
-                   
+                    
+                    int array_size = m-1;
+                            
                     for(i=0; i<= array_size ;i++)
                     {
                         if(data_array[i].contains(search_textfield.getText()))
@@ -193,9 +216,7 @@ public class Home_Page extends DashBoard_Template
                     
                     HTML_Text = HTML_Text    
                         +"</table><br><br>"
-                            ; 
-                    
-                    
+                            ;  
                 }    
             }
        
