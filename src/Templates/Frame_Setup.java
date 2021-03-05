@@ -114,7 +114,7 @@ public class Frame_Setup extends JFrame
     public int getRemainingQuantity(String model_number,String filename)
     {
         boolean found = false;
-        int modelCount = 0;
+        int model_count = 0,quantity_string_index;
         
         if(model_number==null||"".equals(model_number))
         {
@@ -122,8 +122,7 @@ public class Frame_Setup extends JFrame
         } 
         else
         {
-        
-        try
+        /*try
         {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             int s = 0;
@@ -143,7 +142,7 @@ public class Frame_Setup extends JFrame
                 
                 String result = demo_text.substring(0, demo_text.indexOf(","));
                 
-                modelCount = modelCount+Integer.parseInt(result);               
+                model_count = model_count+Integer.parseInt(result);               
                 found = true;
             }
       
@@ -155,11 +154,30 @@ public class Frame_Setup extends JFrame
             }
             else
             {
-                return modelCount;
-            }
-            
-        }   
-    } 
+                return model_count;
+            }*/
+                    
+            try{
+                
+                BufferedReader br = new BufferedReader(new FileReader(filename));
+                String s;
+                
+                while((s=br.readLine())!=null)
+                {
+                    if(s.contains(model_number))
+                    {
+                        quantity_string_index = s.indexOf(model_number) + model_number.length() + 1;
+                        String demo_string = s.substring(quantity_string_index, quantity_string_index+10);
+                        model_count = model_count + Integer.parseInt(demo_string.substring(0, demo_string.indexOf(",")));
+                    }
+                }
+    
+            }catch(Exception e) {}
+              
+        return model_count;
+        
+        }
+    }
     
     
     public int getTotalStock(String model_number,String purchase_filename,String sales_filename)
@@ -171,5 +189,7 @@ public class Frame_Setup extends JFrame
         return (product_purchased-product_sold);
     
     }
+    
+    
     
 }
