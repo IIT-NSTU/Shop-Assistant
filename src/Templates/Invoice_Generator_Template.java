@@ -35,8 +35,8 @@ import javax.swing.JTextField;
 public class Invoice_Generator_Template extends Frame_Setup
 {
     public JPanel horizontal_panel_top,main_panel,horizontal_panel_bottom,input_panel,output_panel,total_information_panel;
-    public JLabel null_label,date_label,id_label,name_label,address_label,mobile_number_label,product_type_label,model_number_label,quantity_label,per_item_price_label,payment_label,paid_label,due_label,total_payment_label,total_paid_label,total_due_label;
-    public JTextField date_textfield,id_textfield,name_textfield,address_textfield,mobile_number_textfield,quantity_textfield,per_item_price_textfield,payment_textfield,total_payment_textfield,total_paid_textfield,total_due_textfield;
+    public JLabel date_label,id_label,name_label,address_label,mobile_number_label,product_type_label,model_number_label,quantity_label,per_item_price_label,payment_label,paid_label,due_label,subtotal_label,discount_label,total_payment_label,total_paid_label,total_due_label;
+    public JTextField date_textfield,id_textfield,name_textfield,address_textfield,mobile_number_textfield,quantity_textfield,per_item_price_textfield,payment_textfield,subtotal_textfield,discount_textfield,total_payment_textfield,total_paid_textfield,total_due_textfield;
     public JButton home_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button,clear_button,add_to_cart_button,print_button,delete_button;
     public JEditorPane cart_editorpane;
     public JScrollPane scroll;
@@ -44,7 +44,7 @@ public class Invoice_Generator_Template extends Frame_Setup
     public JButton horizontal_panel_top_buttons[] = {home_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button};
     public JButton horizontal_panel_bottom_buttons[] = {clear_button,add_to_cart_button,delete_button,print_button};
     public JComboBox product_type_combobox,model_number_combobox;
-    public int total_payment=0,total_paid=0,total_due=0;
+    public int subtotal=0,total_payment,total_paid=0,total_due=0;
     public String HTML_Text = "";
     public String raw_data = "";
 
@@ -239,10 +239,25 @@ public class Invoice_Generator_Template extends Frame_Setup
        output_panel.add(scroll,BorderLayout.CENTER);
        
        total_information_panel = new JPanel();
-       GridLayout gridlayout = new GridLayout(3,2);
+       GridLayout gridlayout = new GridLayout(5,2);
        gridlayout.setVgap(7);
        total_information_panel.setLayout(gridlayout);
        output_panel.add(total_information_panel,BorderLayout.SOUTH);
+       
+       subtotal_label = new JLabel("        Subtotal");
+       subtotal_label.setFont(new Font("Arial",Font.BOLD,18));
+       total_information_panel.add(subtotal_label);
+       subtotal_textfield = new JTextField("");
+       subtotal_textfield.setFont(new Font("Arial",Font.BOLD,18));
+       subtotal_textfield.setEditable(false);
+       total_information_panel.add(subtotal_textfield);
+       
+       discount_label = new JLabel("        Discount");
+       discount_label.setFont(new Font("Arial",Font.BOLD,18));
+       total_information_panel.add(discount_label);
+       discount_textfield = new JTextField("");
+       discount_textfield.setFont(new Font("Arial",Font.BOLD,18));
+       total_information_panel.add(discount_textfield);
        
        total_payment_label = new JLabel("        Total Payment");
        total_payment_label.setFont(new Font("Arial",Font.BOLD,18));
@@ -377,8 +392,8 @@ public class Invoice_Generator_Template extends Frame_Setup
     
     public void add_to_cart(String file_name)
     {
-        total_payment = total_payment + Integer.parseInt(payment_textfield.getText());
-        total_payment_textfield.setText(""+total_payment);
+        subtotal = subtotal + Integer.parseInt(payment_textfield.getText());
+        subtotal_textfield.setText(""+subtotal);
         
         setDue();
    
@@ -387,6 +402,8 @@ public class Invoice_Generator_Template extends Frame_Setup
         quantity_textfield.setText("");
         per_item_price_textfield.setText("");
         payment_textfield.setText(""); 
+        discount_textfield.setText(""); 
+        total_paid_textfield.setText(""); 
     }
     
  
@@ -445,6 +462,12 @@ public class Invoice_Generator_Template extends Frame_Setup
     public void addHTMLendtext(String keyword)
     {
         HTML_Text = HTML_Text 
+                        +"<tr>"
+                        +"<td></td><td></td><td></td><td>Subtotal</td><td>"+subtotal_textfield.getText()+"</td>"
+                        +"</tr>"
+                        +"<tr>"
+                        +"<td></td><td></td><td></td><td>Discount ( - )</td><td>"+discount_textfield.getText()+"</td>"
+                        +"</tr>"
                         +"<tr>"
                         +"<td></td><td></td><td></td><td>Total Payment</td><td>"+total_payment_textfield.getText()+"</td>"
                         +"</tr>"
@@ -665,6 +688,38 @@ public class Invoice_Generator_Template extends Frame_Setup
              }
         });
         
+        discount_textfield.addKeyListener(new KeyListener()
+        {
+            public void keyTyped(KeyEvent ke){}    
+          
+            public void keyPressed(KeyEvent ke) {} 
+            
+            public void keyReleased(KeyEvent ke) 
+            {
+                if(!isDigit(ke.getKeyChar()))
+                {
+                    JOptionPane.showMessageDialog(null, "Please Enter Valid Digits");
+                    discount_textfield.setText("");
+                }    
+                else
+                {
+                    try{
+                    total_payment = Integer.parseInt(subtotal_textfield.getText())-(Integer.parseInt(discount_textfield.getText()));
+                    
+                    if(total_payment<=0)
+                    {
+                        JOptionPane.showMessageDialog(null, "Please Enter Valid Digits");                        
+                        discount_textfield.setText("");
+                    }
+                    else
+                    {
+                        total_payment_textfield.setText(""+total_payment);
+                    }
+                    }catch(Exception e) {}
+                }
+             }
+        });
+        
         total_paid_textfield.addKeyListener(new KeyListener()
         {
             public void keyTyped(KeyEvent ke){}    
@@ -797,9 +852,9 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if("".equals(total_payment_textfield.getText())||"".equals(total_paid_textfield.getText())||"".equals(total_due_textfield.getText())||!cart_editorpane.getText().contains("WALTON"))
+                if("".equals(subtotal_textfield.getText())||"".equals(discount_textfield.getText())||"".equals(total_payment_textfield.getText())||"".equals(total_paid_textfield.getText())||"".equals(total_due_textfield.getText())||!cart_editorpane.getText().contains("WALTON"))
                 {
-                    JOptionPane.showMessageDialog(null, "Please Enter Paid Amount");
+                    JOptionPane.showMessageDialog(null, "Please Enter Discount and Paid Amount");
                 }
                 else 
                 {
@@ -835,8 +890,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                 
             } 
             catch (FileNotFoundException ex) {}
-                } 
-                
+                }              
             }
         });
         
