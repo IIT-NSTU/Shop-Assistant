@@ -35,8 +35,8 @@ import javax.swing.JTextField;
 public class Invoice_Generator_Template extends Frame_Setup
 {
     public JPanel horizontal_panel_top,main_panel,horizontal_panel_bottom,input_panel,output_panel,total_information_panel;
-    public JLabel date_label,id_label,name_label,address_label,mobile_number_label,product_type_label,model_number_label,quantity_label,per_item_price_label,payment_label,paid_label,due_label,subtotal_label,discount_label,total_payment_label,total_paid_label,total_due_label;
-    public JTextField date_textfield,id_textfield,name_textfield,address_textfield,mobile_number_textfield,quantity_textfield,per_item_price_textfield,payment_textfield,subtotal_textfield,discount_textfield,total_payment_textfield,total_paid_textfield,total_due_textfield;
+    public JLabel date_label,id_label,name_label,address_label,mobile_number_label,product_type_label,model_number_label,quantity_label,unit_price_label,payment_label,paid_label,due_label,subtotal_label,discount_label,total_payment_label,total_paid_label,total_due_label;
+    public JTextField date_textfield,id_textfield,name_textfield,address_textfield,mobile_number_textfield,quantity_textfield,unit_price_textfield,payment_textfield,subtotal_textfield,discount_textfield,total_payment_textfield,total_paid_textfield,total_due_textfield;
     public JButton home_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button,clear_button,add_to_cart_button,print_button,delete_button;
     public JEditorPane cart_editorpane;
     public JScrollPane scroll;
@@ -44,7 +44,7 @@ public class Invoice_Generator_Template extends Frame_Setup
     public JButton horizontal_panel_top_buttons[] = {home_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button};
     public JButton horizontal_panel_bottom_buttons[] = {clear_button,add_to_cart_button,delete_button,print_button};
     public JComboBox product_type_combobox,model_number_combobox;
-    public int subtotal=0,total_payment,total_paid=0,total_due=0;
+    public int subtotal=0,total_payment,total_paid=0,total_due=0,serial_no=1;
     public String HTML_Text = "";
     public String raw_data = "";
 
@@ -211,12 +211,12 @@ public class Invoice_Generator_Template extends Frame_Setup
         quantity_textfield.setFont(font);
         input_panel.add(quantity_textfield);
         
-        per_item_price_label = new JLabel("Enter Per Item Price");
-        per_item_price_label.setFont(font);
-        input_panel.add(per_item_price_label);
-        per_item_price_textfield = new JTextField("");
-        per_item_price_textfield.setFont(font);
-        input_panel.add(per_item_price_textfield);
+        unit_price_label = new JLabel("Enter Per Item Price");
+        unit_price_label.setFont(font);
+        input_panel.add(unit_price_label);
+        unit_price_textfield = new JTextField("");
+        unit_price_textfield.setFont(font);
+        input_panel.add(unit_price_textfield);
          
         payment_label = new JLabel("Product's Payment");
         payment_label.setFont(font);
@@ -322,13 +322,13 @@ public class Invoice_Generator_Template extends Frame_Setup
     public void setPayment()
     {
         try{
-        int answer = Math.round(Float.parseFloat(quantity_textfield.getText())*Float.parseFloat(per_item_price_textfield.getText()));
+        int answer = Math.round(Float.parseFloat(quantity_textfield.getText())*Float.parseFloat(unit_price_textfield.getText()));
                         
         if(answer>1000000000)
         {
                 JOptionPane.showMessageDialog(null, "Please Do Not Enter Large Digits");
                 quantity_textfield.setText("");
-                per_item_price_textfield.setText("");
+                unit_price_textfield.setText("");
                 payment_textfield.setText("");
         }
         else
@@ -380,7 +380,7 @@ public class Invoice_Generator_Template extends Frame_Setup
     
     public boolean check_all_filled_up()
     {
-        if("".equals(id_textfield.getText())||"".equals(date_textfield.getText())||"".equals(name_textfield.getText())||"".equals(address_textfield.getText())||"".equals(mobile_number_textfield.getText())||"".equals(product_type_combobox.getSelectedItem())||"".equals(model_number_combobox.getSelectedItem())||"".equals(quantity_textfield.getText())||"".equals(per_item_price_textfield.getText())||"".equals(payment_textfield.getText()))
+        if("".equals(id_textfield.getText())||"".equals(date_textfield.getText())||"".equals(name_textfield.getText())||"".equals(address_textfield.getText())||"".equals(mobile_number_textfield.getText())||"".equals(product_type_combobox.getSelectedItem())||"".equals(model_number_combobox.getSelectedItem())||"".equals(quantity_textfield.getText())||"".equals(unit_price_textfield.getText())||"".equals(payment_textfield.getText()))
         {
             return false;
         }
@@ -400,7 +400,7 @@ public class Invoice_Generator_Template extends Frame_Setup
         product_type_combobox.setSelectedItem("");
         model_number_combobox.setSelectedItem("");
         quantity_textfield.setText("");
-        per_item_price_textfield.setText("");
+        unit_price_textfield.setText("");
         payment_textfield.setText(""); 
         discount_textfield.setText(""); 
         total_paid_textfield.setText(""); 
@@ -436,26 +436,26 @@ public class Invoice_Generator_Template extends Frame_Setup
             +"<br>"
             +"<table width=\"100%\" style=\"font-size:8px\" >"
             +"<tr>"
-            +"<td>Product Type</td><td>Product Model Number</td><td>Quantity</td><td>Product Price</td><td>Payment</td>"
+            +"<td>No.</td><td>Product Type</td><td>Product Model Number</td><td style=\"text-align:right\">Quantity</td><td style=\"text-align:right\">Unit Price</td><td style=\"text-align:right\">Payment</td>"
             +"</tr>"
             +"<tr>"
-            +"<td>"+product_type_combobox.getSelectedItem()+"</td><td>"+model_number_combobox.getSelectedItem()+"</td><td>"+quantity_textfield.getText()+"</td><td>"+per_item_price_textfield.getText()+"</td><td>"+payment_textfield.getText()+"</td>"
+            +"<td>"+serial_no+"</td><td>"+product_type_combobox.getSelectedItem()+"</td><td>"+model_number_combobox.getSelectedItem()+"</td><td style=\"text-align:right\">"+quantity_textfield.getText()+"</td><td style=\"text-align:right\">"+unit_price_textfield.getText()+"</td><td style=\"text-align:right\">"+payment_textfield.getText()+"</td>"
             +"</tr>"
                
             ;
         
-        raw_data = raw_data + id_textfield.getText() +","+ date_textfield.getText() +","+ name_textfield.getText() +","+ address_textfield.getText() +","+ mobile_number_textfield.getText() +","+ product_type_combobox.getSelectedItem() +","+ model_number_combobox.getSelectedItem() +","+ quantity_textfield.getText() +","+ per_item_price_textfield.getText() +","+ payment_textfield.getText()+"," ;
+        raw_data = raw_data + id_textfield.getText() +","+ date_textfield.getText() +","+ name_textfield.getText() +","+ address_textfield.getText() +","+ mobile_number_textfield.getText() +","+ product_type_combobox.getSelectedItem() +","+ model_number_combobox.getSelectedItem() +","+ quantity_textfield.getText() +","+ unit_price_textfield.getText() +","+ payment_textfield.getText()+"," ;
     }
     
     public void addHTMLmidtext()
     {
         HTML_Text = HTML_Text 
                         +"<tr>"
-                        +"<td>"+product_type_combobox.getSelectedItem()+"</td><td>"+model_number_combobox.getSelectedItem()+"</td><td>"+quantity_textfield.getText()+"</td><td>"+per_item_price_textfield.getText()+"</td><td>"+payment_textfield.getText()+"</td>"
+                        +"<td>"+(serial_no=serial_no+1)+"</td><td>"+product_type_combobox.getSelectedItem()+"</td><td>"+model_number_combobox.getSelectedItem()+"</td><td style=\"text-align:right\">"+quantity_textfield.getText()+"</td><td style=\"text-align:right\">"+unit_price_textfield.getText()+"</td><td style=\"text-align:right\">"+payment_textfield.getText()+"</td>"
                         +"</tr>"
                         ;
         
-        raw_data = raw_data + product_type_combobox.getSelectedItem() +","+ model_number_combobox.getSelectedItem() +","+ quantity_textfield.getText() +","+ per_item_price_textfield.getText() +","+ payment_textfield.getText()+"," ;
+        raw_data = raw_data + product_type_combobox.getSelectedItem() +","+ model_number_combobox.getSelectedItem() +","+ quantity_textfield.getText() +","+ unit_price_textfield.getText() +","+ payment_textfield.getText()+"," ;
 
     }
     
@@ -463,19 +463,19 @@ public class Invoice_Generator_Template extends Frame_Setup
     {
         HTML_Text = HTML_Text 
                         +"<tr>"
-                        +"<td></td><td></td><td></td><td>Subtotal</td><td>"+subtotal_textfield.getText()+"</td>"
+                        +"<td></td><td></td><td></td><td></td><td style=\"text-align:right\">Subtotal</td><td style=\"text-align:right\">"+subtotal_textfield.getText()+"</td>"
                         +"</tr>"
                         +"<tr>"
-                        +"<td></td><td></td><td></td><td>Discount ( - )</td><td>"+discount_textfield.getText()+"</td>"
+                        +"<td></td><td></td><td></td><td></td><td style=\"text-align:right\">Discount ( - )</td><td style=\"text-align:right\">"+discount_textfield.getText()+"</td>"
                         +"</tr>"
                         +"<tr>"
-                        +"<td></td><td></td><td></td><td>Total Payment</td><td>"+total_payment_textfield.getText()+"</td>"
+                        +"<td></td><td></td><td></td><td></td><td style=\"text-align:right\">Total Payment</td><td style=\"text-align:right\">"+total_payment_textfield.getText()+"</td>"
                         +"</tr>"
                         +"<tr>"
-                        +"<td></td><td></td><td></td><td>Paid Amount</td><td>"+total_paid_textfield.getText()+"</td>"
+                        +"<td></td><td></td><td></td><td></td><td style=\"text-align:right\">Paid Amount</td><td style=\"text-align:right\">"+total_paid_textfield.getText()+"</td>"
                         +"</tr>"
                         +"<tr>"
-                        +"<td></td><td></td><td></td><td>Due Amount</td><td>"+total_due_textfield.getText()+"</td>"
+                        +"<td></td><td></td><td></td><td></td><td style=\"text-align:right\">Due Amount</td><td style=\"text-align:right\">"+total_due_textfield.getText()+"</td>"
                         +"</tr>"
                         + "</table>"
                         +"<br>"
@@ -651,7 +651,7 @@ public class Invoice_Generator_Template extends Frame_Setup
         
         });
         
-        per_item_price_textfield.addKeyListener(new KeyListener()
+        unit_price_textfield.addKeyListener(new KeyListener()
         { 
             public void keyTyped(KeyEvent ke){}  
             
@@ -659,7 +659,7 @@ public class Invoice_Generator_Template extends Frame_Setup
            
             public void keyReleased(KeyEvent ke) 
             {
-                String input_text = per_item_price_textfield.getText();
+                String input_text = unit_price_textfield.getText();
                 
                 char demo[] = input_text.toCharArray();
                 
@@ -677,7 +677,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                 if(count>1||(ke.getKeyChar()!='0'&&ke.getKeyChar()!='1'&&ke.getKeyChar()!='2'&&ke.getKeyChar()!='3'&&ke.getKeyChar()!='4'&&ke.getKeyChar()!='5'&&ke.getKeyChar()!='6'&&ke.getKeyChar()!='7'&&ke.getKeyChar()!='8'&&ke.getKeyChar()!='9'&&ke.getKeyChar()!=(char)8&&ke.getKeyChar()!=(char)10&&ke.getKeyChar()!=(char)46))
                 {
                     JOptionPane.showMessageDialog(null, "Please Enter Valid Digits");
-                    per_item_price_textfield.setText("");
+                    unit_price_textfield.setText("");
                 } 
                 
                 else
@@ -714,6 +714,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                     else
                     {
                         total_payment_textfield.setText(""+total_payment);
+                        total_paid_textfield.setText("");
                     }
                     }catch(Exception e) {}
                 }
@@ -806,7 +807,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                 product_type_combobox.setSelectedItem("");
                 model_number_combobox.setSelectedItem("");
                 quantity_textfield.setText("");
-                per_item_price_textfield.setText("");
+                unit_price_textfield.setText("");
                 payment_textfield.setText("");
                 total_payment_textfield.setText("");
                 total_paid_textfield.setText("");
@@ -819,13 +820,13 @@ public class Invoice_Generator_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if(!check_all_filled_up()||"0".equals(quantity_textfield.getText())||"0".equals(per_item_price_textfield.getText()))
+                if(!check_all_filled_up()||"0".equals(quantity_textfield.getText())||"0".equals(unit_price_textfield.getText()))
                 {
                     JOptionPane.showMessageDialog(null, "Please Enter All Valid Information");
                 }
                 else 
                 { 
-                    int choice = JOptionPane.showConfirmDialog(null, "Are Your Sure?\n\n\n\n\nID : "+id_textfield.getText()+"\nDate : "+date_textfield.getText()+"\n"+keyword+" Name : "+name_textfield.getText()+"\n"+keyword+" Address : "+address_textfield.getText()+"\n"+keyword+" Mobile Number : "+mobile_number_textfield.getText()+"\nProduct Type : "+product_type_combobox.getSelectedItem()+"\nModel Number : "+model_number_combobox.getSelectedItem()+"\nQuantity : "+quantity_textfield.getText()+"\nPer Item Price : "+per_item_price_textfield.getText()+"\nPayment : "+payment_textfield.getText()+"\n\n\n\n\n\n","Confirm",JOptionPane.YES_NO_OPTION);
+                    int choice = JOptionPane.showConfirmDialog(null, "Are Your Sure?\n\n\n\n\nID : "+id_textfield.getText()+"\nDate : "+date_textfield.getText()+"\n"+keyword+" Name : "+name_textfield.getText()+"\n"+keyword+" Address : "+address_textfield.getText()+"\n"+keyword+" Mobile Number : "+mobile_number_textfield.getText()+"\nProduct Type : "+product_type_combobox.getSelectedItem()+"\nModel Number : "+model_number_combobox.getSelectedItem()+"\nQuantity : "+quantity_textfield.getText()+"\nPer Item Price : "+unit_price_textfield.getText()+"\nPayment : "+payment_textfield.getText()+"\n\n\n\n\n\n","Confirm",JOptionPane.YES_NO_OPTION);
                     
                     if(choice == JOptionPane.YES_OPTION)
                     {

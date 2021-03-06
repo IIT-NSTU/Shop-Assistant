@@ -149,7 +149,7 @@ public class Home_Page extends DashBoard_Template
                     data_array[5] = "  Product Type  :  " + data_array[5];
                     data_array[6] = "  Model Number  :  " + data_array[6];
                     data_array[7] = "  Quantity  :  " + data_array[7];
-                    data_array[8] = "  Per Item Price  :  " + data_array[8];
+                    data_array[8] = "  Unit Price  :  " + data_array[8];
                     data_array[9] = "  Payment  :  " + data_array[9];
                     data_array[array_size_to_due-2] = "  Total Payment  :  " + data_array[array_size_to_due - 2];
                     data_array[array_size_to_due-1] = "  Paid Amount  :  " + data_array[array_size_to_due - 1];
