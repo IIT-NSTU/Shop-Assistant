@@ -9,8 +9,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -26,7 +29,7 @@ public class Home_Page extends DashBoard_Template
     public JPanel search_panel,input_panel;
     public JLabel search_label;
     public JTextField search_textfield;
-    public JButton search_button,clear_button;
+    public JButton search_button,clear_button,print_button;
     public JEditorPane show_details_editorpane;
     public JScrollPane scroll;
     public String HTML_Text = "";
@@ -39,7 +42,7 @@ public class Home_Page extends DashBoard_Template
         setSeachFeatures();
     }
     
-     public void setPageButton()
+    public void setPageButton()
     {
         getButton("Home").setBackground(Color.LIGHT_GRAY);
         getButton("Home").setForeground(Color.BLACK);
@@ -64,7 +67,7 @@ public class Home_Page extends DashBoard_Template
         
         
         search_panel = new JPanel();
-        search_panel.setLayout(new GridLayout(2,1));
+        search_panel.setLayout(new BorderLayout());
         search_panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         search_panel.setBackground(Color.WHITE);
         main_panel.add(search_panel,BorderLayout.CENTER);
@@ -73,8 +76,8 @@ public class Home_Page extends DashBoard_Template
     public void setSearchPanel()
     {
         input_panel = new JPanel();
-        input_panel.setLayout(new GridLayout(2,2));
-        search_panel.add(input_panel);
+        input_panel.setLayout(new GridLayout(3,2));
+        search_panel.add(input_panel,BorderLayout.NORTH);
         
         search_label = new JLabel("Enter Your Keyword");
         search_label.setFont(new Font("Arial",Font.BOLD,16));
@@ -94,12 +97,16 @@ public class Home_Page extends DashBoard_Template
         search_button.setFont(new Font("Arial",Font.BOLD,16));
         input_panel.add(search_button);
         
+        print_button = new JButton("Print");
+        print_button.setFont(new Font("Arial",Font.BOLD,16));
+        input_panel.add(print_button);
+        
         show_details_editorpane = new JEditorPane();
         show_details_editorpane.setContentType("text/html");
         show_details_editorpane.setText(HTML_Text);
         show_details_editorpane.setEditable(false);
         scroll = new JScrollPane(show_details_editorpane);
-        search_panel.add(scroll);  
+        search_panel.add(scroll,BorderLayout.CENTER);
     }
     
     public void setHTMLText(String filename)
@@ -252,6 +259,18 @@ public class Home_Page extends DashBoard_Template
             show_details_editorpane.setText("");
         }
         
+        });
+        
+        print_button.addActionListener(new ActionListener(){
+        
+        public void actionPerformed(ActionEvent e)
+        {
+            try 
+            {
+                show_details_editorpane.print();
+            } catch (PrinterException ex) {}
+        }
+       
         });
         
     }

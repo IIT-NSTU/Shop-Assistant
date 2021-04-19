@@ -2,6 +2,7 @@
 package Templates;
 
 import Shop_Assistant.Add_Cost_Page;
+import Shop_Assistant.Advanced_Stock_Check_Page;
 import Shop_Assistant.Create_Purchase_Invoice_Page;
 import Shop_Assistant.Create_Sales_Invoice_Page;
 import Shop_Assistant.Daily_Income_Cost_Page;
@@ -23,24 +24,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
 public class DashBoard_Template extends Frame_Setup 
 {
     public JPanel horizontal_panel,vertical_panel,main_panel;
-    public JButton shop_name_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button,home_button,add_cost_button,daily_income_cost_button,stock_check_button,due_check_button,staff_attendence_button,settings_button;
+    public JButton shop_name_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button,home_button,add_cost_button,daily_income_cost_button,stock_check_button,advanced_stock_check_button,due_check_button,staff_attendence_button,settings_button;
     
     
     public JButton horizontal_panel_buttons[] = {shop_name_button,create_sales_invoice_button,create_purchase_invoice_button,logout_button};
-    public JButton vertical_panel_buttons[] = {home_button,add_cost_button,daily_income_cost_button,stock_check_button,due_check_button,staff_attendence_button,settings_button};
+    public JButton vertical_panel_buttons[] = {home_button,add_cost_button,daily_income_cost_button,stock_check_button,advanced_stock_check_button,due_check_button,staff_attendence_button,settings_button};
     
     
     public DashBoard_Template()
     {
+        setFrame();
         setContainer();
         setPanels();
         setActionListeners();
+    }
+    
+    public void setFrame()
+    {
+        super.setFrame();
+        this.setSize(900, 600);
+        this.setLocationRelativeTo(null);
     }
     
     public void setContainer()
@@ -61,7 +71,7 @@ public class DashBoard_Template extends Frame_Setup
         setHorizontal_Panel_Components();
         
         vertical_panel = new JPanel();
-        vertical_panel.setLayout(new GridLayout(7,1));
+        vertical_panel.setLayout(new GridLayout(8,1));
         vertical_panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         container.add(vertical_panel,BorderLayout.WEST);
         setVertical_Panel_Components();
@@ -91,8 +101,8 @@ public class DashBoard_Template extends Frame_Setup
         
     public void setVertical_Panel_Components()
     {
-        ImageIcon Icons[] = {home_button_icon,add_cost_button_icon,daily_income_cost_button_icon,stock_check_button_icon,due_check_button_icon,staff_attendence_button_icon,settings_button_icon};
-        String Button_Names[] = {"Home","Add Cost","Daily Income Cost","Stock Check","Due Check","Staff Attendence","Settings"};
+        ImageIcon Icons[] = {home_button_icon,add_cost_button_icon,daily_income_cost_button_icon,stock_check_button_icon,stock_check_button_icon,due_check_button_icon,staff_attendence_button_icon,settings_button_icon};
+        String Button_Names[] = {"Home","Add Cost","Daily Income Cost","Stock Check","Advanced Stock Check","Due Check","Staff Attendence","Settings"};
         
         for(int i = 0 ; i < vertical_panel_buttons.length ; i++)
         {
@@ -186,6 +196,16 @@ public class DashBoard_Template extends Frame_Setup
             {
                 dispose();
                 Stock_Check_Page frame = new Stock_Check_Page();
+                frame.setVisible(true);
+            }
+        });
+        
+        getButton("Advanced Stock Check").addActionListener(new ActionListener()
+        {     
+            public void actionPerformed(ActionEvent e)
+            {
+                dispose();
+                Advanced_Stock_Check_Page  frame = new Advanced_Stock_Check_Page();
                 frame.setVisible(true);
             }
         });

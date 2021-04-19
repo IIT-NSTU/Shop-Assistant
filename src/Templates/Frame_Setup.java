@@ -164,11 +164,51 @@ public class Frame_Setup extends JFrame
                 
                 while((s=br.readLine())!=null)
                 {
-                    if(s.contains(model_number))
+                    while(s.contains(model_number))
                     {
-                        quantity_string_index = s.indexOf(model_number) + model_number.length() + 1;
-                        String demo_string = s.substring(quantity_string_index, quantity_string_index+10);
-                        model_count = model_count + Integer.parseInt(demo_string.substring(0, demo_string.indexOf(",")));
+                        //if(s.contains(model_number))
+                        //{
+                            quantity_string_index = s.indexOf(model_number) + model_number.length() + 1;
+                            String demo_string = s.substring(quantity_string_index, quantity_string_index+10);
+                            model_count = model_count + Integer.parseInt(demo_string.substring(0, demo_string.indexOf(",")));
+                            s = s.substring(s.indexOf(model_number) + model_number.length() + 1, s.length());
+                       // }
+                    }
+                }
+    
+            }catch(Exception e) {}
+              
+        return model_count;
+        
+        }
+    }
+    
+    public int getRemainingQuantityUsingDate(String date,String model_number,String filename)
+    {
+        int model_count = 0,quantity_string_index;
+        
+        if(model_number==null||"".equals(model_number))
+        {
+            return 0;
+        } 
+        else
+        {    
+            try{
+                
+                BufferedReader br = new BufferedReader(new FileReader(filename));
+                String s;
+                
+                while((s=br.readLine())!=null)
+                {                    
+                    if(s.contains(date))
+                    {             
+                        while(s.contains(model_number))
+                        {
+                            quantity_string_index = s.indexOf(model_number) + model_number.length() + 1;
+                            String demo_string = s.substring(quantity_string_index, quantity_string_index+10);
+                            model_count = model_count + Integer.parseInt(demo_string.substring(0, demo_string.indexOf(",")));
+                            s = s.substring(s.indexOf(model_number) + model_number.length() + 1, s.length());  
+                        }
                     }
                 }
     

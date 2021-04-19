@@ -64,7 +64,8 @@ public class Invoice_Generator_Template extends Frame_Setup
     public void setFrame()
     {
         super.setFrame();
-        this.setSize(950, 550);
+        this.setSize(950, 600);
+        this.setLocationRelativeTo(null);
     }
     
     public void setContainer()
