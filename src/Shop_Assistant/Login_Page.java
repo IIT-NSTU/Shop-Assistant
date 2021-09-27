@@ -93,7 +93,6 @@ public class Login_Page extends Starting_Template
                 else
                 {
                     JOptionPane.showMessageDialog(null, "Please enter valid username and password");
-                    System.out.println(""+username_textfield.getText());
                 }
             }
         });       

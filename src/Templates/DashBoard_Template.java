@@ -24,7 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -49,7 +49,7 @@ public class DashBoard_Template extends Frame_Setup
     public void setFrame()
     {
         super.setFrame();
-        this.setSize(900, 600);
+        this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
     }
     
@@ -214,9 +214,19 @@ public class DashBoard_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                dispose();
-                Staff_Attendence_Page frame = new Staff_Attendence_Page();
-                frame.setVisible(true);
+                String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
+                
+                if(userInput.equals("admin"))
+                {
+                    dispose();
+                    Staff_Attendence_Page frame = new Staff_Attendence_Page();
+                    frame.setVisible(true);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Invalid Password");
+                }
+                
             }
         });
         

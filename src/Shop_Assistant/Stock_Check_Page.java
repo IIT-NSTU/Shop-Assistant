@@ -65,7 +65,6 @@ public class Stock_Check_Page extends DashBoard_Template
         output_panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         output_panel.setBackground(Color.WHITE);
         main_panel.add(output_panel,BorderLayout.CENTER);
-
     }
     
     public void setOutputPanel()
