@@ -14,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -84,11 +83,9 @@ public class Staff_Attendence_Page extends DashBoard_Template
     }
     
     public void setintputPanel()
-    {
-        
+    {    
         input_panel = new JPanel();
         input_panel.setLayout(new GridLayout(9,1));
-        input_panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         input_panel.setBackground(Color.WHITE);
         center_panel.add(input_panel);
         
@@ -96,8 +93,7 @@ public class Staff_Attendence_Page extends DashBoard_Template
         date_label.setBackground(Color.WHITE);
         date_label.setFont(new Font("Arial",Font.BOLD,16));
         input_panel.add(date_label);       
- 
-        
+  
         date_textfield = new JTextField(setDate());
         date_textfield.setBackground(Color.WHITE);
         date_textfield.setEditable(false);
@@ -109,7 +105,6 @@ public class Staff_Attendence_Page extends DashBoard_Template
         select_member_label.setFont(new Font("Arial",Font.BOLD,16));        
         input_panel.add(select_member_label);
         
-
         member_name_combobox = new JComboBox();
         member_name_combobox.setFont(new Font("Arial",Font.BOLD,16));
         input_panel.add(member_name_combobox);
@@ -226,7 +221,7 @@ public class Staff_Attendence_Page extends DashBoard_Template
                     
                 if(!member_name_combobox.getSelectedItem().equals(""))
                 {
-                    output_textarea.setText("\n"+member_name_combobox.getSelectedItem()+" Attendence List\n\n");
+                    output_textarea.setText("\n"+"    "+member_name_combobox.getSelectedItem()+" Attendence List\n\n");
                     
                     int month_array_present[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
                     int month_array_absent[] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -253,16 +248,18 @@ public class Staff_Attendence_Page extends DashBoard_Template
                             }
                             
                             
-                            output_textarea.append(attendence+"  "+s.substring(s.indexOf(date), s.length())+"\n");
+                            output_textarea.append("    "+attendence+"  "+s.substring(s.indexOf(date), s.length())+"\n");
                         }    
                     }
+                    
+                    output_textarea.append("\n\n");
                     
                     for(i=1;i<=12;i++)
                     {
                         if(month_array_present[i]>0||month_array_absent[i]>0)
                         {
-                            output_textarea.append("Total Present in "+(i)+"th month "+month_array_present[i]+"\n");
-                            output_textarea.append("Total Absent in "+(i)+"th month "+month_array_absent[i]+"\n");
+                            output_textarea.append("    Total Present in "+(i)+"th month "+month_array_present[i]+" days\n");
+                            output_textarea.append("    Total Absent in "+(i)+"th month "+month_array_absent[i]+" days\n");
                         }
                     }
                     

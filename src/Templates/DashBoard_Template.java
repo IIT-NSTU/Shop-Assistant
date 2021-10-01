@@ -234,9 +234,18 @@ public class DashBoard_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                dispose();
-                Settings_Page frame = new Settings_Page();
-                frame.setVisible(true);
+                String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
+                
+                if(userInput.equals("admin"))
+                {
+                    dispose();
+                    Settings_Page frame = new Settings_Page();
+                    frame.setVisible(true);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Invalid Password");
+                }
             }
         });
          
