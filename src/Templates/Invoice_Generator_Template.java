@@ -816,6 +816,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                 total_paid_textfield.setText("");
                 total_due_textfield.setText("");
                 cart_editorpane.setText("");
+                HTML_Text = "";
             }
         });
         
@@ -867,7 +868,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                         cart_editorpane.setText(HTML_Text);
                         getButton("Finish").setEnabled(false);
                         getButton("Add to Cart").setEnabled(false);
-                        getButton("Clear").setEnabled(true);
+                        getButton("Clear").setEnabled(false);
                         getButton("Print").setEnabled(true);
                         
                         

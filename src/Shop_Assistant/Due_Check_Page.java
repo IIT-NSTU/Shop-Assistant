@@ -12,9 +12,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -399,33 +401,33 @@ public class Due_Check_Page extends DashBoard_Template
         {     
             public void actionPerformed(ActionEvent e)
             {
+                try{
+                    
+                if("".equals(customer_amount_textfield.getText())) 
+                {
+                    JOptionPane.showMessageDialog(null, "Please Enter Some Amount");   
+                }
                 
-                if(Integer.parseInt(customer_amount_textfield.getText())>checkDue((String)customer_due_id_combobox.getSelectedItem(),"Sales_Database.txt"))
+                else if(Integer.parseInt(customer_amount_textfield.getText())>checkDue((String)customer_due_id_combobox.getSelectedItem(),"Sales_Database.txt"))
                 {
                     JOptionPane.showMessageDialog(null, "Please Do Not Enter Extra Amount\nYour Due is "+checkDue((String)customer_due_id_combobox.getSelectedItem(),"Sales_Database.txt"));
                     customer_amount_textfield.setText("");
                 }
-                
                 else
                 {
-                try{
-                    
-     
-                File f = new File("Income_Cost_Database.txt");
                    
-                PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
-                p.append(customer_due_id_combobox.getSelectedItem()+","+date_textfield.getText()+","+"Income By Customer Due Amount"+","+customer_amount_textfield.getText()+"\n");
-                p.close();
+                BufferedWriter bw = new BufferedWriter(new FileWriter("Income_Cost_Database.txt",true));
+                bw.append(customer_due_id_combobox.getSelectedItem()+","+date_textfield.getText()+","+"Income By Customer Due Amount"+","+customer_amount_textfield.getText()+"\n");
+                bw.close();
                  
                 JOptionPane.showMessageDialog(null, "Customer Due Added Successfully");
                 JOptionPane.showMessageDialog(null, "Remaining Due Amount is "+checkDue((String)customer_due_id_combobox.getSelectedItem(),"Sales_Database.txt"));
                 
                 refresh();
+                      
+                }
                 
                 }catch(Exception ex) {}
-                        
-                        
-                }
             }
         });
         
@@ -433,7 +435,13 @@ public class Due_Check_Page extends DashBoard_Template
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if(Integer.parseInt(company_amount_textfield.getText())>checkDue((String)company_due_id_combobox.getSelectedItem(),"Purchase_Database.txt"))
+                try{
+                if("".equals(company_amount_textfield.getText())) 
+                {
+                    JOptionPane.showMessageDialog(null, "Please Enter Some Amount");   
+                }
+                
+                else if(Integer.parseInt(company_amount_textfield.getText())>checkDue((String)company_due_id_combobox.getSelectedItem(),"Purchase_Database.txt"))
                 {
                     JOptionPane.showMessageDialog(null, "Please Do Not Enter Extra Amount\nYour Due is "+checkDue((String)company_due_id_combobox.getSelectedItem(),"Purchase_Database.txt"));
                     company_amount_textfield.setText("");
@@ -441,24 +449,20 @@ public class Due_Check_Page extends DashBoard_Template
                 
                 else
                 {
-                      
-                try{
-                 
-                File f = new File("Income_Cost_Database.txt");
-                   
-                PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
-                p.append(company_due_id_combobox.getSelectedItem()+","+date_textfield.getText()+","+"Cost By Company Due Amount"+","+company_amount_textfield.getText()+"\n");
-                p.close();
+  
+                BufferedWriter bw = new BufferedWriter(new FileWriter("Income_Cost_Database.txt",true));
+                bw.append(company_due_id_combobox.getSelectedItem()+","+date_textfield.getText()+","+"Cost By Company Due Amount"+","+company_amount_textfield.getText()+"\n");
+                bw.close();
                 
                 JOptionPane.showMessageDialog(null, "Company Due Paid Successfully");
                 JOptionPane.showMessageDialog(null, "Remaining Due Amount is "+checkDue((String)company_due_id_combobox.getSelectedItem(),"Purchase_Database.txt"));
 
                 
                 refresh();
-                
+
+                }
                 
                 }catch(Exception ex) {}
-                }
             }
         });
     }
