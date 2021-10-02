@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -246,7 +247,7 @@ public class Settings_Page extends DashBoard_Template
     
     public void setSettingsPageFeatures()
     {
-        password_change_label.addMouseListener(new MouseListener(){
+        password_change_label.addMouseListener(new MouseAdapter(){
             
             public void mouseClicked(MouseEvent me) 
             {
@@ -261,10 +262,9 @@ public class Settings_Page extends DashBoard_Template
                     passwordSectionVisibility = true;
                 }                  
             }
-            public void mousePressed(MouseEvent me) {} public void mouseReleased(MouseEvent me) {} public void mouseEntered(MouseEvent me) {} public void mouseExited(MouseEvent me) {}
         });       
         
-        add_new_member_Label.addMouseListener(new MouseListener(){
+        add_new_member_Label.addMouseListener(new MouseAdapter(){
             
             public void mouseClicked(MouseEvent me) 
             {
@@ -278,11 +278,10 @@ public class Settings_Page extends DashBoard_Template
                     setAddNewMemberSectionVisible(true);
                     addNewMemberSectionVisibility = true;
                 }                  
-            }
-            public void mousePressed(MouseEvent me) {} public void mouseReleased(MouseEvent me) {} public void mouseEntered(MouseEvent me) {} public void mouseExited(MouseEvent me) {}
+            }           
         });
         
-        new_model_add_label.addMouseListener(new MouseListener(){
+        new_model_add_label.addMouseListener(new MouseAdapter(){
             
             public void mouseClicked(MouseEvent me) 
             {
@@ -297,10 +296,9 @@ public class Settings_Page extends DashBoard_Template
                     addNewModelSectionVisibility = true;
                 }                  
             }
-            public void mousePressed(MouseEvent me) {} public void mouseReleased(MouseEvent me) {} public void mouseEntered(MouseEvent me) {} public void mouseExited(MouseEvent me) {}
         });
         
-        remove_member_Label.addMouseListener(new MouseListener(){
+        remove_member_Label.addMouseListener(new MouseAdapter(){
             
             public void mouseClicked(MouseEvent me) 
             {
@@ -315,7 +313,6 @@ public class Settings_Page extends DashBoard_Template
                     removeModelSectionVisibility = true;
                 }                  
             }
-            public void mousePressed(MouseEvent me) {} public void mouseReleased(MouseEvent me) {} public void mouseEntered(MouseEvent me) {} public void mouseExited(MouseEvent me) {}
         });
         
         password_submit_button.addActionListener(new ActionListener(){

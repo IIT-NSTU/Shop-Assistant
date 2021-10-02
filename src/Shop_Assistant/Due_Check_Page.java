@@ -258,7 +258,7 @@ public class Due_Check_Page extends DashBoard_Template
                   i--;
                 }
             
-                StringBuilder sb=new StringBuilder(result);  
+                StringBuffer sb=new StringBuffer(result);  
                 sb.reverse();    
         
                 int due = Integer.parseInt(sb.toString());
@@ -284,7 +284,7 @@ public class Due_Check_Page extends DashBoard_Template
                   i--;
                 }
             
-                StringBuilder sb=new StringBuilder(result);  
+                StringBuffer sb=new StringBuffer(result);  
                 sb.reverse();    
         
                 int due = Integer.parseInt(sb.toString());
