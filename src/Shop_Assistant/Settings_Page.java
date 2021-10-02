@@ -7,13 +7,18 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -313,6 +318,199 @@ public class Settings_Page extends DashBoard_Template
             public void mousePressed(MouseEvent me) {} public void mouseReleased(MouseEvent me) {} public void mouseEntered(MouseEvent me) {} public void mouseExited(MouseEvent me) {}
         });
         
+        password_submit_button.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                if(password_submit_button.isVisible())
+                {
+                    try{
+                        
+                    String new_password,old_password = getPassword();
+                    
+                    if(old_password.equals(old_password_textfield.getText())||"admin".equals(old_password_textfield.getText()))
+                    {
+                        if(!"".equals(new_password_textfield_1.getText())&&!"".equals(new_password_textfield_2.getText()))
+                        {
+                       
+                        if(new_password_textfield_1.getText().equals(new_password_textfield_2.getText()))
+                        {
+                            new_password = new_password_textfield_1.getText();
+                            JOptionPane.showMessageDialog(null, "Password Changed Successfully");
+   
+                            BufferedWriter bw = new BufferedWriter(new FileWriter("User_Database.txt",false));
+                            bw.write("Password:"+new_password);
+                            bw.close();
+                    
+                            old_password_textfield.setText("");
+                            new_password_textfield_1.setText("");
+                            new_password_textfield_2.setText("");
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "New Password Does Not Match");
+                        }
+                        
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Please Enter New PassWord Twice");
+                        }
+
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Old Password is Incorrect");
+                    }
+                    
+     
+                    }catch(Exception ex) {System.out.println(ex);}
+                        
+                }
+            }
+        
+        });
+        
+        add_member_button.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                if(add_member_button.isVisible())
+                {
+                    try{
+                        
+                    if(!"".equals(member_name_textfield.getText()))
+                    {
+                        BufferedWriter bw = new BufferedWriter(new FileWriter("Staff_Name_List.txt",true));
+                        bw.append("Member:"+member_name_textfield.getText()+"\n");
+                        bw.close();
+                    
+                        JOptionPane.showMessageDialog(null, "New Member Added Successfully");
+                    
+                        member_name_textfield.setText("");          
+                    }    
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Please Enter Staff Name");
+                    }
+                    
+                    }catch(Exception ex) {System.out.println(ex);}     
+                }
+            }
+        
+        });  
+        
+        add_model_button.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                if(add_model_button.isVisible())
+                {
+                    try{
+                        
+                    String model_number,category = product_type_combobox.getSelectedItem().toString();
+
+                    if(!"".equals(category))
+                    {
+                        if(!"".equals(model_name_textfield_1.getText())&&!"".equals(model_name_textfield_2.getText()))
+                        {
+                            if(model_name_textfield_1.getText().equals(model_name_textfield_2.getText()))
+                            {
+                                model_number = model_name_textfield_1.getText();
+
+                                BufferedReader br = new BufferedReader(new FileReader("Product_Type_&_Model_List.txt"));
+                                
+                                String raw_data = "",s;
+                                
+                                while((s=br.readLine())!=null)
+                                {
+                                    if(s.contains(category))
+                                    {        
+                                        raw_data = raw_data + s + model_number + "." + "\n";
+                                    }
+                                    else
+                                    {
+                                        raw_data = raw_data + s + "\n";
+                                    }
+                                }
+                                
+                                br.close();
+                                
+                                BufferedWriter bw = new BufferedWriter(new FileWriter("Product_Type_&_Model_List.txt",false));           
+                                bw.write(raw_data);
+                                bw.close();
+                    
+                                model_name_textfield_1.setText("");
+                                model_name_textfield_2.setText("");
+                                
+                                JOptionPane.showMessageDialog(null, "New Model Added Successfully");
+                            } 
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Model Number Does Not Macth");
+                            }
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Please Enter New Model Name Twice");
+                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Please Select Product Type");
+                    }
+                    
+                    }catch(Exception ex) {System.out.println(ex);}
+                        
+                }
+            }
+        
+        });
+        
+        remove_member_button.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                if(remove_member_button.isVisible())
+                {
+                    try{
+                        
+                        String member_name = member_name_combobox.getSelectedItem().toString();
+                        
+                    if(!"".equals(member_name))
+                    {
+                        BufferedReader br = new BufferedReader(new FileReader("Staff_Name_List.txt"));
+                        String s,raw_data="";
+                        
+                        while((s=br.readLine())!=null)
+                        {
+                            if(!s.contains(member_name))
+                            {
+                                raw_data = raw_data + s + "\n";
+                            }
+                        }
+                        
+                        br.close();
+                        
+                        BufferedWriter bw = new BufferedWriter(new FileWriter("Staff_Name_List.txt",false));
+                        bw.write(raw_data);
+                        bw.close();
+                    
+                        JOptionPane.showMessageDialog(null, "Staff "+member_name+" Removed  Successfully");
+                    
+                        member_name_combobox.removeAllItems();
+                        setMemberNames();
+                    }    
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Please Select A Staff");
+                    }
+                    
+                    }catch(Exception ex) {System.out.println(ex);}     
+                }
+            }
+        
+        }); 
     }
     
     public void setMemberNames() 
@@ -334,8 +532,7 @@ public class Settings_Page extends DashBoard_Template
             
             br.close();
             
-        }catch(Exception e) {System.out.println(e);}    
-        
+        }catch(Exception e) {System.out.println(e);}       
     }
     
     public void setPasswordSectionVisible(boolean visibility)
@@ -370,6 +567,8 @@ public class Settings_Page extends DashBoard_Template
         select_member_label.setVisible(visibility);
         member_name_combobox.setVisible(visibility);
         remove_member_button.setVisible(visibility);   
+        member_name_combobox.removeAllItems();
+        setMemberNames();
     }
     
     public static void main(String[] args) 

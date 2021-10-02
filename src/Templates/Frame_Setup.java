@@ -87,6 +87,14 @@ public class Frame_Setup extends JFrame
                     i++;
                 }
                 
+                int p = i;
+                
+                while(p<80)
+                {
+                    product_type[p] = "";
+                    p++;
+                }
+                
             }catch(Exception ex){}
         
         return product_type;
@@ -219,15 +227,28 @@ public class Frame_Setup extends JFrame
     
     
     public int getTotalStock(String model_number,String purchase_filename,String sales_filename)
-    {
-    
+    {  
         int product_sold = getRemainingQuantity(model_number,sales_filename);
         int product_purchased = getRemainingQuantity(model_number,purchase_filename);
         
         return (product_purchased-product_sold);
-    
     }
     
+    public String getPassword()
+    {
+        String password = "";
+        
+        try{
+            
+            BufferedReader br = new BufferedReader(new FileReader("User_Database.txt"));   
+            String s = br.readLine();
+            password = s.substring(9,s.length());
+            br.close();        
+            
+        }catch(Exception e) {System.out.println(e);}
+        
+        return password;
+    }
     
     
 }

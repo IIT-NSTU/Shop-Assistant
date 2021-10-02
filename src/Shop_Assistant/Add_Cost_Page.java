@@ -11,9 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -63,7 +65,6 @@ public class Add_Cost_Page extends DashBoard_Template
         
         null_label = new JLabel();
         main_panel.add(null_label,BorderLayout.SOUTH);
-        
         
         input_panel = new JPanel();
         input_panel.setLayout(new GridLayout(8,1));
@@ -173,20 +174,18 @@ public class Add_Cost_Page extends DashBoard_Template
                 }
                 else
                 {    
-                
                  try
                  {
-                    File f = new File("Income_Cost_Database.txt");
-                   
-                    PrintWriter p = new PrintWriter(new FileOutputStream(f,true));
-                    p.append("P100000000"+","+date_textfield.getText()+","+"Cost By "+cost_type_combobox.getSelectedItem()+","+cost_amount_textfield.getText()+"\n");
-                    p.close();
+                    BufferedWriter bw = new BufferedWriter(new FileWriter("Income_Cost_Database.txt",true));
+                     
+                    bw.append("P100000000"+","+date_textfield.getText()+","+"Cost By "+cost_type_combobox.getSelectedItem()+","+cost_amount_textfield.getText()+"\n");
+                    bw.close();
                     
                     JOptionPane.showMessageDialog(null,cost_type_combobox.getSelectedItem()+" "+cost_amount_textfield.getText()+" Added Successfully");
                     
                     cost_amount_textfield.setText(""); 
                  } 
-                 catch (FileNotFoundException ex) {}
+                 catch (Exception ex) {}
                 }
             }
         });

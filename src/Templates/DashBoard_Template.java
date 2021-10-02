@@ -275,4 +275,9 @@ public class DashBoard_Template extends Frame_Setup
         return button;
     }
     
+    public static void main(String[] args) 
+    {
+       new DashBoard_Template().setVisible(true);
+    }
+    
 }
