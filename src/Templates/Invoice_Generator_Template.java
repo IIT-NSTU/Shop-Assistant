@@ -810,6 +810,8 @@ public class Invoice_Generator_Template extends Frame_Setup
                 quantity_textfield.setText("");
                 unit_price_textfield.setText("");
                 payment_textfield.setText("");
+                subtotal_textfield.setText("");
+                discount_textfield.setText("");
                 total_payment_textfield.setText("");
                 total_paid_textfield.setText("");
                 total_due_textfield.setText("");
@@ -865,6 +867,7 @@ public class Invoice_Generator_Template extends Frame_Setup
                         cart_editorpane.setText(HTML_Text);
                         getButton("Finish").setEnabled(false);
                         getButton("Add to Cart").setEnabled(false);
+                        getButton("Clear").setEnabled(true);
                         getButton("Print").setEnabled(true);
                         
                         
