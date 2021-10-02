@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class Advanced_Stock_Check_Page extends DashBoard_Template
     public JLabel select_label,day_label,month_label,year_label,product_type_label,model_number_label;
     public JComboBox day_combobox,month_combobox,year_combobox,product_type_combobox,model_number_combobox;
     public JTextField show_quantity_textfield;
+    public JButton print_button;
+    public JTextArea print_textarea = new JTextArea("");
     
     public String day[] = new String[32];
     public String month[] = new String[13];
@@ -65,7 +68,7 @@ public class Advanced_Stock_Check_Page extends DashBoard_Template
         main_panel.add(null_label,BorderLayout.SOUTH);
         
         output_panel = new JPanel();
-        output_panel.setLayout(new GridLayout(7,1));
+        output_panel.setLayout(new GridLayout(8,1));
         output_panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         output_panel.setBackground(Color.WHITE);
         main_panel.add(output_panel,BorderLayout.CENTER);
@@ -128,6 +131,12 @@ public class Advanced_Stock_Check_Page extends DashBoard_Template
         show_quantity_textfield.setEditable(false);
         show_quantity_textfield.setBackground(Color.WHITE);
         output_panel.add(show_quantity_textfield);
+        
+        print_button = new JButton("Print");
+        print_button.setFont(new Font("Arial",Font.BOLD,16));
+        print_button.setFocusPainted(false);
+        output_panel.add(print_button);
+        
     }
     
     public void setManualDate()
@@ -197,7 +206,26 @@ public class Advanced_Stock_Check_Page extends DashBoard_Template
                 }
             }
   
-        });  
+        }); 
+         
+        print_button.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                if("".equals(print_textarea.getText()))
+                {
+                    JOptionPane.showMessageDialog(null, "Please Get Some Stock Information");
+                }
+                else 
+                {
+                    try {
+                        print_textarea.print(); 
+                    } catch (PrinterException ex) {
+                    }   
+                }  
+            }
+         
+        }); 
         
     }
     
@@ -206,6 +234,7 @@ public class Advanced_Stock_Check_Page extends DashBoard_Template
         model_number_combobox.setEnabled(true);
         model_number_combobox.removeAllItems();
         model_number_combobox.addItem("");
+        print_textarea.setText("Information For This Period : "+date+"\n\n");
 
         int sales_model_count=0,sales_stock,purchase_model_count=0,purchase_stock;
 
@@ -237,21 +266,27 @@ public class Advanced_Stock_Check_Page extends DashBoard_Template
                     {
                         sales_model_count = sales_model_count + sales_stock;
                         model_number_combobox.addItem(model_number); 
-                        model_number_combobox.addItem("Sales "+sales_stock); 
+                        model_number_combobox.addItem("Sales "+sales_stock+" Pcs\n"); 
+                        
+                        print_textarea.append(model_number);
+                        print_textarea.append("Sales "+sales_stock+" Pcs\n");
                     }
                     if(purchase_stock!=0)
                     {
                         purchase_model_count = purchase_model_count + purchase_stock;
                         model_number_combobox.addItem(model_number); 
-                        model_number_combobox.addItem("Purchase "+purchase_stock); 
+                        model_number_combobox.addItem("Purchase "+purchase_stock+" Pcs\n"); 
+                        
+                        print_textarea.append(model_number);
+                        print_textarea.append("Purchase "+purchase_stock+" Pcs\n");
                     }        
                     model_number = "";
                 }
                 i++;
             }
                     
-            show_quantity_textfield.setText("Total "+product_type_combobox.getSelectedItem()+" Sold "+sales_model_count+" Purchased "+purchase_model_count);
-
+            show_quantity_textfield.setText("Total "+product_type_combobox.getSelectedItem()+" Sold : "+sales_model_count+" Pcs Purchased : "+purchase_model_count+" Pcs\n");
+            print_textarea.append("Total "+product_type_combobox.getSelectedItem()+" Sold : "+sales_model_count+" Pcs Purchased : "+purchase_model_count+" Pcs\n");
 
             }catch(Exception ex){System.out.println(ex);}
     }

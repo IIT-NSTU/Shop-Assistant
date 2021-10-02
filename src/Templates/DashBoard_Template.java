@@ -214,7 +214,9 @@ public class DashBoard_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
+                try{
+                    
+                    String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
                 
                 if(userInput.equals("admin"))
                 {
@@ -226,6 +228,7 @@ public class DashBoard_Template extends Frame_Setup
                 {
                     JOptionPane.showMessageDialog(null, "Invalid Password");
                 }
+                }catch(NullPointerException ex) {}
                 
             }
         });
@@ -234,7 +237,8 @@ public class DashBoard_Template extends Frame_Setup
         {     
             public void actionPerformed(ActionEvent e)
             {
-                String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
+                try{
+                    String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
                 
                 if(userInput.equals("admin"))
                 {
@@ -246,6 +250,7 @@ public class DashBoard_Template extends Frame_Setup
                 {
                     JOptionPane.showMessageDialog(null, "Invalid Password");
                 }
+                }catch(NullPointerException ex) {}
             }
         });
          

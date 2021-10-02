@@ -765,3 +765,4 @@ P100000000,01/10/2021 Fri 07:23:16 PM,Cost By Product Purchase ,Walton,Dhaka,017
 P100000157,01/10/2021 Fri 07:25:30 PM,Cost By Company Due Amount,15000
 P100000157,01/10/2021 Fri 07:25:56 PM,Cost By Company Due Amount,20000
 P100000157,01/10/2021 Fri 07:26:49 PM,Cost By Company Due Amount,5000
+P100000000,02/10/2021 Sat 10:55:00 AM,Cost By Electricity Bill,50000

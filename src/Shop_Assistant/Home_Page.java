@@ -12,15 +12,12 @@ import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 

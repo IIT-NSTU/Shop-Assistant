@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import javax.swing.JButton;
@@ -24,7 +25,7 @@ public class Daily_Income_Cost_Page extends DashBoard_Template
     public JPanel input_panel,input_date_panel,date_panel;
     public JLabel select_label,day_label,month_label,year_label;
     public JComboBox day_combobox,month_combobox,year_combobox;
-    public JButton submit_button;
+    public JButton submit_button,print_button;
     public JTextArea show_details_textarea;
     public JScrollPane scroll;
     
@@ -49,7 +50,7 @@ public class Daily_Income_Cost_Page extends DashBoard_Template
     
     public void setMainPanel()
     {
-        main_panel.setLayout(new BorderLayout(90,40));
+        main_panel.setLayout(new BorderLayout(70,25));
 
         null_label = new JLabel();
         main_panel.add(null_label,BorderLayout.NORTH);
@@ -75,7 +76,7 @@ public class Daily_Income_Cost_Page extends DashBoard_Template
     public void setInputPanel()
     {    
         input_date_panel = new JPanel();
-        input_date_panel.setLayout(new GridLayout(3,1));
+        input_date_panel.setLayout(new GridLayout(4,1));
         input_date_panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         input_date_panel.setBackground(Color.WHITE);
         input_panel.add(input_date_panel);
@@ -123,8 +124,13 @@ public class Daily_Income_Cost_Page extends DashBoard_Template
         submit_button.setFocusPainted(false);
         input_date_panel.add(submit_button); 
         
+        print_button = new JButton("Print");
+        print_button.setFont(new Font("Arial",Font.BOLD,16));
+        print_button.setFocusPainted(false);
+        input_date_panel.add(print_button); 
+        
         show_details_textarea = new JTextArea();
-        show_details_textarea.setFont(new Font("Arial",Font.BOLD,16));
+        show_details_textarea.setFont(new Font("Arial",Font.BOLD,14));
         show_details_textarea.setEditable(false);
         scroll = new JScrollPane(show_details_textarea);
         input_panel.add(scroll); 
@@ -177,99 +183,135 @@ public class Daily_Income_Cost_Page extends DashBoard_Template
     
     }
     
+    public void setIncomeCostInformation(String keyword,String date)
+    {
+        try{
+                BufferedReader br = new BufferedReader(new FileReader("Income_Cost_Database.txt"));
+                String s,data_date;
+                String ans = "";
+                int income_amount = 0;
+                int cost_amount = 0;
+                while((s=br.readLine())!=null)
+                { 
+                    if(date.length()==10)
+                    {
+                        data_date = s.substring(11, 21);
+                    }
+                    else
+                    {
+                        data_date = s.substring(13, 21);
+                    }
+                    
+                    if(date.equals(data_date))
+                    {
+                        String demo[] = s.substring(11, s.length()).split(",");
+                        int j=0;
+                        while(j!=demo.length)
+                        {
+                            ans = ans + demo[j]+" ";
+                            j++;
+                        } 
+                        ans = ans + "Tk\n";
+
+                        if(s.charAt(0)=='P')
+                        {
+                            char demo2[] = s.toCharArray();
+                                 
+                            int i = s.length()-1;
+                            String r="";
+                            while(demo2[i]!=',')
+                            {
+                                r = r + demo2[i];
+                                i--;
+                            }
+                                 
+                            StringBuilder sb = new StringBuilder(r);  
+                            sb.reverse();
+                                
+                            int amount = Integer.parseInt(sb.toString());
+                                
+                            cost_amount = cost_amount+amount;  
+                        }
+                             
+                        if(s.charAt(0)=='S')
+                        {
+                            char demo2[] = s.toCharArray();
+                                 
+                            int i = s.length()-1;
+                            String r="";
+                            while(demo2[i]!=',')
+                            {
+                                r = r + demo2[i];
+                                i--;
+                            }
+                                 
+                            StringBuilder sb = new StringBuilder(r);  
+                            sb.reverse();
+                                
+                            int amount = Integer.parseInt(sb.toString()); 
+                            income_amount = income_amount+amount;  
+                            
+                            }
+                         }
+                     }
+ 
+                    if("".equals(ans))
+                    {
+                        JOptionPane.showMessageDialog(null, "No Information On That "+keyword);
+                        show_details_textarea.setText("");
+                    }
+                    else
+                    {                     
+                        ans = ans + "\n\nThis "+keyword+"'s Total Income "+income_amount+" Tk"; 
+                        ans = ans + "\nThis "+keyword+"'s Total Cost "+cost_amount+" Tk"; 
+                        ans = ans + "\nThis "+keyword+"'s Total Cash "+(income_amount-cost_amount)+" Tk"; 
+                        
+                        show_details_textarea.setText(ans);
+                    }  
+                        
+                    }catch(Exception ex){System.out.println(ex);}
+    }
+    
     public void setDailyIncomeCostFeatures()
     {
         submit_button.addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
             {
-                if("".equals(day_combobox.getSelectedItem())||"".equals(month_combobox.getSelectedItem())||"".equals(year_combobox.getSelectedItem()))
+                if(!"".equals(day_combobox.getSelectedItem())&&!"".equals(month_combobox.getSelectedItem())&&!"".equals(year_combobox.getSelectedItem()))
                 {
-                    JOptionPane.showMessageDialog(null, "Please Enter a Valid Date");
+                    String result = day_combobox.getSelectedItem()+"/"+month_combobox.getSelectedItem()+"/"+year_combobox.getSelectedItem();
+                    setIncomeCostInformation("Day",result);
+                }
+                else if(!"".equals(month_combobox.getSelectedItem())&&!"".equals(year_combobox.getSelectedItem()))
+                {
+                    String result = "/"+month_combobox.getSelectedItem()+"/"+year_combobox.getSelectedItem();
+                    setIncomeCostInformation("Month",result);
                 }
                 else
                 {
-                    String result = day_combobox.getSelectedItem()+"/"+month_combobox.getSelectedItem()+"/"+year_combobox.getSelectedItem();
-                         
-                 try{
-                     
-                     BufferedReader br = new BufferedReader(new FileReader("Income_Cost_Database.txt"));
-                     String s;
-                     String ans = "";
-                     int income_amount = 0;
-                     int cost_amount = 0;
-                     while((s=br.readLine())!=null)
-                     { 
-                         if(result.equals(s.substring(11, 21)))
-                         {
-                             String demo[] = s.substring(21, s.length()).split(",");
-                             int j=0;
-                             while(j!=demo.length)
-                             {
-                                 ans = ans + demo[j]+" ";
-                                 j++;
-                             } 
-                             ans = ans + "\n";
-                             
-                             
-                             if(s.charAt(0)=='P')
-                             {
-                                 char demo2[] = s.toCharArray();
-                                 
-                                 int i = s.length()-1;
-                                 String r="";
-                                 while(demo2[i]!=',')
-                                 {
-                                     r = r + demo2[i];
-                                     i--;
-                                 }
-                                 
-                                StringBuilder sb = new StringBuilder(r);  
-                                sb.reverse();
-                                
-                                int amount = Integer.parseInt(sb.toString());
-                                
-                                cost_amount = cost_amount+amount;  
-                             }
-                             
-                             if(s.charAt(0)=='S')
-                             {
-                                 char demo2[] = s.toCharArray();
-                                 
-                                 int i = s.length()-1;
-                                 String r="";
-                                 while(demo2[i]!=',')
-                                 {
-                                     r = r + demo2[i];
-                                     i--;
-                                 }
-                                 
-                                StringBuilder sb = new StringBuilder(r);  
-                                sb.reverse();
-                                
-                                int amount = Integer.parseInt(sb.toString()); 
-                                income_amount = income_amount+amount;                 
-                             }
-                         }
-                     }
- 
-                     if("".equals(ans))
-                     {
-                         JOptionPane.showMessageDialog(null, "No Information On That Day");
-                         show_details_textarea.setText("");
-                     }
-                     else
-                     {                     
-                        ans = ans + "\n\nThis Day's Total Income "+income_amount; 
-                        ans = ans + "\nThis Day's Total Cost "+cost_amount; 
-                        ans = ans + "\nThis Day's Total Cash "+(income_amount-cost_amount); 
-                        
-                        show_details_textarea.setText(ans);
-                     }  
-                        
-                    }catch(Exception ex){System.out.println(ex);}
+                    JOptionPane.showMessageDialog(null, "Please Enter A Valid Date");
                 }
             }
+        });
+        
+        print_button.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                if("".equals(show_details_textarea.getText()))
+                {
+                    JOptionPane.showMessageDialog(null, "Please Get Some Income Cost Information");
+                }
+                else 
+                {
+                    try {
+                        show_details_textarea.print();
+                    } catch (PrinterException ex) {
+                    }   
+                }  
+            }
+         
         });
         
         
