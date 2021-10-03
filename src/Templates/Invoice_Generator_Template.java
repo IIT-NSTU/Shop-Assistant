@@ -817,6 +817,10 @@ public class Invoice_Generator_Template extends Frame_Setup
                 total_due_textfield.setText("");
                 cart_editorpane.setText("");
                 HTML_Text = "";
+                subtotal=0;
+                total_paid=0;
+                total_due=0;
+                serial_no=1;
             }
         });
         
