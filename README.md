@@ -21,33 +21,33 @@ In Digital Bangladesh regarding business sector, sometimes a shopkeeper needs so
 ```
   Loading Page
 ```
- ![Loading Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Loading_Page.png)
+ ![Loading Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/LoadingPage.png)
  ```
   Login Page
   ```
- ![Login Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Login_Page.png)
+ ![Login Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/LoginPage.png)
  ```
   Home Page
   ```
- ![Home Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Home_Page.png)
+ ![Home Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/HomePage.png)
  ```
   Sales Invoice Making Page
   ```
- ![Invoice Making Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Invoice_Making_Page.png)
+ ![Invoice Making Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/InvoiceMakingPage.png)
  
 ```
   Add Cost Page
 ```
  
- ![Add Cost Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Add_Cost_Page.png)
+ ![Add Cost Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/AddCostPage.png)
  ```
   Stock Check Page
   ```
- ![Stock Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Stock_Check_Page.png)
+ ![Stock Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/StockCheckPage.png)
   ```
   Due Check Page
   ```
- ![Due Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/Due_Check_Page.png)
+ ![Due Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/DueCheckPage.png)
 
  
  ## Getting started
@@ -72,21 +72,21 @@ Reach out to our team **(XENON)** at one of the following places!
  ```
 - Contact No : 01793222825
 - Gmail at prosantodeb7@gmail.com
-- GitHub at <a href="https://github.com/Prosanto7" target="_blank">`Prosanto Deb GitHub`</a>
-- Facebook at <a href="https://web.facebook.com/prosantoDEB" target="_blank">`Prosanto Deb Facebook`</a>
+- GitHub at <a href="https://github.com/Prosanto7" target="Blank">`Prosanto Deb GitHub`</a>
+- Facebook at <a href="https://web.facebook.com/prosantoDEB" target="Blank">`Prosanto Deb Facebook`</a>
 
 ```
  Sultana Marjan
  ```
 - Gmail at marjanmitu12@gmail.com 
-- GitHub at <a href="https://github.com/marjan12" target="_blank">`Sultana Marjan GitHub`</a>
-- Facebook at <a href="https://web.facebook.com/marjan.mitu.7796" target="_blank">`Sultana Marjan Facebook`</a>
+- GitHub at <a href="https://github.com/marjan12" target="Blank">`Sultana Marjan GitHub`</a>
+- Facebook at <a href="https://web.facebook.com/marjan.mitu.7796" target="Blank">`Sultana Marjan Facebook`</a>
 
 ```
  Md Alamgir Hossain
  ```
-- GitHub at <a href="https://github.com/Alamgir2-2" target="_blank">`Alamgir GitHub`</a>
-- Facebook at <a href="https://web.facebook.com/meshwork.web" target="_blank">`Alamgir Facebook`</a>
+- GitHub at <a href="https://github.com/Alamgir2-2" target="Blank">`Alamgir GitHub`</a>
+- Facebook at <a href="https://web.facebook.com/meshwork.web" target="Blank">`Alamgir Facebook`</a>
   
   
   
