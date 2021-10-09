@@ -35,14 +35,20 @@ public class AdvancedStockCheckPage extends DashBoardTemplate
     public String month[] = new String[13];
     public String year[] = new String[102];
     
+    /**
+     *  Advanced Stock Check Constructor
+     */
     public AdvancedStockCheckPage()
     {
         setPageButton();
         setMainPanel();
         setOutputPanel();
-        setStockCheckFeatures();
+        setAdvancedStockCheckFeatures();
     }
     
+    /**
+     * This Method Sets Button Using Different BackGround and ForeGround Color
+     */
     public void setPageButton()
     {
         getButton("Advanced Stock Check").setBackground(Color.LIGHT_GRAY);
@@ -50,6 +56,9 @@ public class AdvancedStockCheckPage extends DashBoardTemplate
         getButton("Advanced Stock Check").setFont(new Font("Arial",Font.BOLD,16));
     }
     
+    /**
+     * This Method Sets Input Panel Components
+     */
     public void setMainPanel()
     {
         mainPanel.setLayout(new BorderLayout(120,50));
@@ -73,6 +82,9 @@ public class AdvancedStockCheckPage extends DashBoardTemplate
         mainPanel.add(outputPanel,BorderLayout.CENTER);
     }
     
+    /**
+     * This Method Sets Output Panel Components
+     */
     public void setOutputPanel()
     {   
         datePanel = new JPanel();
@@ -138,6 +150,9 @@ public class AdvancedStockCheckPage extends DashBoardTemplate
         
     }
     
+    /**
+     *  This Method Helps To Generate Date Manually
+     */
     public void setManualDate()
     {
         int i;
@@ -185,7 +200,10 @@ public class AdvancedStockCheckPage extends DashBoardTemplate
     
     }
     
-    public void setStockCheckFeatures()
+    /**
+     *  This Method Sets Advanced Stock Check Features
+     */
+    public void setAdvancedStockCheckFeatures()
     {
          productTypeCombobox.addActionListener(new ActionListener(){
         

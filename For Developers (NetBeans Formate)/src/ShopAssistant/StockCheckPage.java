@@ -29,6 +29,9 @@ public class StockCheckPage extends DashBoardTemplate
     public JTextField showQuantityTextField;
     public JComboBox productTypeCombobox,modelNumberCombobox;
     
+    /**
+     *  Stock Check Page Constructor
+     */
     public StockCheckPage()
     {
         setPageButton();
@@ -37,6 +40,9 @@ public class StockCheckPage extends DashBoardTemplate
         setStockCheckFeatures();
     }
     
+    /**
+     * This Method Sets Button Using Different BackGround and ForeGround Color
+     */
     public void setPageButton()
     {
         getButton("Stock Check").setBackground(Color.LIGHT_GRAY);
@@ -44,6 +50,9 @@ public class StockCheckPage extends DashBoardTemplate
         getButton("Stock Check").setFont(new Font("Arial",Font.BOLD,16));
     }
     
+    /**
+     * This Method Sets Main Panel
+     */
     public void setMainPanel()
     {
         mainPanel.setLayout(new BorderLayout(120,50));
@@ -67,6 +76,9 @@ public class StockCheckPage extends DashBoardTemplate
         mainPanel.add(outputPanel,BorderLayout.CENTER);
     }
     
+    /**
+     * This Method Sets Output Panel
+     */
     public void setOutputPanel()
     {    
         productTypeLabel = new JLabel("Product Type");
@@ -95,6 +107,9 @@ public class StockCheckPage extends DashBoardTemplate
         outputPanel.add(showQuantityTextField); 
     }
     
+    /**
+     * This Method Sets Stock Check Features
+     */
     public void setStockCheckFeatures()
     {
         productTypeCombobox.addActionListener(new ActionListener(){

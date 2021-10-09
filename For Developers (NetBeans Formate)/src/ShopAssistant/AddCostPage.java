@@ -30,7 +30,9 @@ public class AddCostPage extends DashBoardTemplate
     public JComboBox costTypeCombobox;
     public String costType[] = {"","Staff Salary","Electricity Bill","Shop Rent","Miscellaneous"};
 
-    
+    /**
+     *  Add Cost Page Constructor
+     */
     public AddCostPage()
     {
         setPageButton();
@@ -39,6 +41,9 @@ public class AddCostPage extends DashBoardTemplate
         setAddCostFeatures();
     }
     
+    /**
+     * This Method Sets Button Using Different BackGround and ForeGround Color
+     */
     public void setPageButton()
     {
         getButton("Add Cost").setBackground(Color.LIGHT_GRAY);
@@ -46,6 +51,9 @@ public class AddCostPage extends DashBoardTemplate
         getButton("Add Cost").setFont(new Font("Arial",Font.BOLD,16));
     }
     
+    /**
+     *  This Method Sets Main Panel Components
+     */
     public void setMainPanel()
     {
         mainPanel.setLayout(new BorderLayout(120,50));
@@ -69,7 +77,9 @@ public class AddCostPage extends DashBoardTemplate
         mainPanel.add(inputPanel,BorderLayout.CENTER);
     }
     
-    
+    /**
+     * This Method Sets Input Panel Components
+     */
     public void setInputPanel()
     {    
         dateLabel = new JLabel("Date & Time");
@@ -114,6 +124,9 @@ public class AddCostPage extends DashBoardTemplate
         inputPanel.add(costSubmitButton);  
     }
     
+    /**
+     *  This Method Sets Cost Features
+     */
     public void setAddCostFeatures()
     {
         costTypeCombobox.addActionListener(new ActionListener()

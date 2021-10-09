@@ -38,14 +38,20 @@ public class StaffAttendancePage extends DashBoardTemplate
     public ButtonGroup attendenceButtonGroup;
     public JButton submitButton,showDetailsButton,printButton;
     
+    /**
+     *  Staff Attendance Page Constructor
+     */
     public StaffAttendancePage()
     {
         setPageButton();
         setMainPanel();
         setCenterPanel();
-        setStaffAttendenceFeatures();
+       setStaffAttendanceFeatures();
     }
     
+    /**
+     * This Method Sets Button Using Different BackGround and ForeGround Color
+     */
     public void setPageButton()
     {
         getButton("Staff Attendence").setBackground(Color.LIGHT_GRAY);
@@ -53,6 +59,9 @@ public class StaffAttendancePage extends DashBoardTemplate
         getButton("Staff Attendence").setFont(new Font("Arial",Font.BOLD,16));
     }
     
+    /**
+     * This Method Sets Main Panel
+     */
     public void setMainPanel()
     {
         mainPanel.setLayout(new BorderLayout(50,30));
@@ -76,12 +85,18 @@ public class StaffAttendancePage extends DashBoardTemplate
         mainPanel.add(centerPanel,BorderLayout.CENTER);
     }
     
+    /**
+     * This Method Sets Center Panel
+     */
     public void setCenterPanel()
     {
         setintputPanel();
         setOutputTextArea();
     }
     
+    /**
+     * This Method Sets Input Panel
+     */
     public void setintputPanel()
     {    
         inputPanel = new JPanel();
@@ -139,10 +154,12 @@ public class StaffAttendancePage extends DashBoardTemplate
         printButton = new JButton("Print Details");
         printButton.setFont(new Font("Arial",Font.BOLD,16));
         printButton.setFocusPainted(false);
-        inputPanel.add(printButton);
-        
+        inputPanel.add(printButton);   
     }
     
+    /**
+     * This Method Sets Output Text Area 
+     */
     public void setOutputTextArea()
     {
         outputTextarea = new JTextArea();
@@ -152,7 +169,10 @@ public class StaffAttendancePage extends DashBoardTemplate
         centerPanel.add(scroll);
     }
     
-    public void setStaffAttendenceFeatures()
+    /**
+     * This Method Sets Staff Attendance Features
+     */
+    public void setStaffAttendanceFeatures()
     {
         submitButton.addActionListener(new ActionListener(){
         
@@ -167,7 +187,7 @@ public class StaffAttendancePage extends DashBoardTemplate
                     
                 if(!memberName.equals(""))
                 {
-                    if(!isAttendenceGiven(memberName,date.substring(0, 10)))
+                    if(!isAttendanceGiven(memberName,date.substring(0, 10)))
                     {
                         if(presentRadioButton.isSelected())
                         { 
@@ -296,7 +316,14 @@ public class StaffAttendancePage extends DashBoardTemplate
         });
     }
     
-    public boolean isAttendenceGiven(String name,String date)
+    /**
+     * This Method Returns Boolean Value if Attendance is Already Given or Not
+     * 
+     * @param name Specific Member Name
+     * @param date Specific Date
+     * @return Attendance Given Or Not
+     */
+    public boolean isAttendanceGiven(String name,String date)
     {
         boolean given = false;
         
@@ -320,6 +347,9 @@ public class StaffAttendancePage extends DashBoardTemplate
         return given;
     }
     
+    /**
+     *  Sets Member Name According to File
+     */
     public void setMemberNames() 
     {  
         memberNameCombobox.addItem("");

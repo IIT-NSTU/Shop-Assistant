@@ -34,6 +34,9 @@ public class DueCheckPage extends DashBoardTemplate
     public JComboBox customerDueIdCombobox,companyDueIdCombobox;
     public JButton customerSubmitButton,companySubmitButton;
     
+    /**
+     *  Due Check Page Constructor
+     */
     public DueCheckPage()
     {
         setPageButton();
@@ -42,6 +45,9 @@ public class DueCheckPage extends DashBoardTemplate
         setDueCheckFeatures();
     }
     
+    /**
+     * This Method Sets Button Using Different BackGround and ForeGround Color
+     */
     public void setPageButton()
     {
         getButton("Due Check").setBackground(Color.LIGHT_GRAY);
@@ -49,6 +55,9 @@ public class DueCheckPage extends DashBoardTemplate
         getButton("Due Check").setFont(new Font("Arial",Font.BOLD,16));
     }
     
+    /**
+     * This Method Sets Main Panel
+     */
     public void setMainPanel()
     {
         mainPanel.setLayout(new BorderLayout(120,50));
@@ -73,6 +82,10 @@ public class DueCheckPage extends DashBoardTemplate
         mainPanel.add(outputPanel,BorderLayout.CENTER);
     }
     
+    
+    /**
+     * This Method Sets Output Panel
+     */
     public void setOutputPanel()
     { 
         dateLabel = new JLabel("Date & Time");
@@ -177,6 +190,9 @@ public class DueCheckPage extends DashBoardTemplate
         
     }
     
+    /**
+     * This Method Sets Customer Due
+     */
     public void setCustomerDue()
     {
         int totalDue = 0;
@@ -205,6 +221,9 @@ public class DueCheckPage extends DashBoardTemplate
         customerDueTextField.setText(""+totalDue);
     }
     
+    /**
+     * This Method Sets Company
+     */
     public void setCompanyDue()
     {
         int totalDue = 0;
@@ -235,6 +254,13 @@ public class DueCheckPage extends DashBoardTemplate
 
     }
     
+    /**
+     * Checks Due
+     * 
+     * @param selectedItem Due of Selected Item
+     * @param filename Specific FileName
+     * @return Due
+     */
     public int checkDue(String selectedItem,String filename)
     {
         int totalDue = 0;
@@ -300,7 +326,13 @@ public class DueCheckPage extends DashBoardTemplate
         
     }
     
-     public boolean checkMoneyDigit(char c)
+    /**
+     * Checks If Money Digit or Not
+     * 
+     * @param c A Specific Character 
+     * @return True if MoneyDigit otherwise false
+     */
+    public boolean checkMoneyDigit(char c)
     {
         if(c!='0'&&c!='1'&&c!='2'&&c!='3'&&c!='4'&&c!='5'&&c!='6'&&c!='7'&&c!='8'&&c!='9'&&c!=(char)10&&c!=(char)8)
             return true;
@@ -317,6 +349,9 @@ public class DueCheckPage extends DashBoardTemplate
         
     }
     
+    /**
+     *  Sets Due Features
+     */
     public void setDueCheckFeatures()
     {
         customerDueIdCombobox.addActionListener(new ActionListener()

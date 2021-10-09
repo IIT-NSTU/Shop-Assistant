@@ -36,7 +36,9 @@ public class SettingsPage extends DashBoardTemplate
     public boolean addNewModelSectionVisibility = false;
     public boolean removeModelSectionVisibility = false;
     
-    
+    /**
+     *  Settings Page Constructor
+     */
     public SettingsPage()
     {
         setPageButton();
@@ -45,6 +47,9 @@ public class SettingsPage extends DashBoardTemplate
         setSettingsPageFeatures();
     }
     
+    /**
+     * This Method Sets Button Using Different BackGround and ForeGround Color
+     */
     public void setPageButton()
     {
         getButton("Settings").setBackground(Color.LIGHT_GRAY);
@@ -52,6 +57,9 @@ public class SettingsPage extends DashBoardTemplate
         getButton("Settings").setFont(new Font("Arial",Font.BOLD,16));
     }
     
+    /**
+     * This Method Sets Main Panel
+     */
     public void setMainPanel()
     {
         mainPanel.setLayout(new BorderLayout(50,30));
@@ -78,12 +86,18 @@ public class SettingsPage extends DashBoardTemplate
         mainPanel.add(centerPanel,BorderLayout.CENTER);
     }
     
+    /**
+     * This Method Sets Center Panel
+     */
     public void setCenterPanel()
     {
         setPasswordChangeAddNewStaffPanel();
         setAddNewModelRemoveMemberPanel();
     }
     
+    /**
+     * This Method Sets Password Change and Add New Staff Panel
+     */
     public void setPasswordChangeAddNewStaffPanel()
     {
         passwordChangeAddNewStaffPanel = new JPanel();
@@ -165,6 +179,9 @@ public class SettingsPage extends DashBoardTemplate
         passwordChangeAddNewStaffPanel.add(addMemberButton);
     }
     
+    /**
+     * This Method Add New Model and Remove Member Panel
+     */
     public void setAddNewModelRemoveMemberPanel()
     {
         addNewModelRemoveMemberPanel = new JPanel();
@@ -245,6 +262,9 @@ public class SettingsPage extends DashBoardTemplate
         addNewModelRemoveMemberPanel.add(removeMemberButton);  
     }
     
+    /**
+     *  Sets Settings Page Features
+     */
     public void setSettingsPageFeatures()
     {
         passwordChangeLabel.addMouseListener(new MouseAdapter(){
@@ -510,6 +530,9 @@ public class SettingsPage extends DashBoardTemplate
         }); 
     }
     
+    /**
+     *  Sets Member Names From File
+     */
     public void setMemberNames() 
     {  
         memberNameCombobox.addItem("");
@@ -532,6 +555,11 @@ public class SettingsPage extends DashBoardTemplate
         }catch(Exception e) {System.out.println(e);}       
     }
     
+    /**
+     * Set Password Section Visible according to Visibility
+     * 
+     * @param visibility sets Visibility True or False
+     */
     public void setPasswordSectionVisible(boolean visibility)
     {
         oldPasswordLabel.setVisible(visibility);
@@ -542,6 +570,11 @@ public class SettingsPage extends DashBoardTemplate
         passwordSubmitButton.setVisible(visibility);  
     }
     
+    /**
+     * Set Add New Member Section Visible according to Visibility
+     * 
+     * @param visibility sets Visibility True or False
+     */
     public void setAddNewMemberSectionVisible(boolean visibility)
     {
         memberNameLabel.setVisible(visibility);
@@ -549,6 +582,11 @@ public class SettingsPage extends DashBoardTemplate
         addMemberButton.setVisible(visibility);
     }
     
+    /**
+     * Set Add New Model Section Visible according to Visibility
+     * 
+     * @param visibility sets Visibility True or False
+     */
     public void setAddNewModelSectionVisible(boolean visibility)
     {
         selectCategoryLabel.setVisible(visibility);
@@ -559,6 +597,11 @@ public class SettingsPage extends DashBoardTemplate
         addModelButton.setVisible(visibility);
     }
     
+    /**
+     * Set Remove Member Section Visible according to Visibility
+     * 
+     * @param visibility sets Visibility True or False
+     */
     public void setRemoveMemberSectionVisible(boolean visibility)
     {
         selectMemberLabel.setVisible(visibility);
