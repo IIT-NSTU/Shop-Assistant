@@ -37,7 +37,9 @@ public class DashBoardTemplate extends FrameSetup
     public JButton horizontalPanelButtons[] = {shopNameButton,createSalesInvoiceButton,createPurchaseInvoiceButton,logoutButton};
     public JButton verticalPanelButtons[] = {homeButton,addCostButton,dailyIncomeCostButton,stockCheckButton,advancedStockCheckButton,dueCheckButton,staffAttendanceButton,settingsButton};
     
-    
+    /**
+     *   DashBoard Template Constructor   
+     */
     public DashBoardTemplate()
     {
         setFrame();
@@ -46,12 +48,20 @@ public class DashBoardTemplate extends FrameSetup
         setActionListeners();
     }
     
+    /**
+     *  Sets Frame Basic Features
+     */
+    
     public void setFrame()
     {
         super.setFrame();
         this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
     }
+    
+    /**
+     *  Sets Container
+     */
     
     public void setContainer()
     {
@@ -61,6 +71,10 @@ public class DashBoardTemplate extends FrameSetup
         
         container.setLayout(new BorderLayout());
     }
+    
+    /**
+     *  Sets Two Panels Called Horizontal Panel and Vertical Panel
+     */
     
     public void setPanels()
     {
@@ -81,6 +95,10 @@ public class DashBoardTemplate extends FrameSetup
         container.add(mainPanel,BorderLayout.CENTER);
     }
     
+    /**
+     *  Sets Horizontal Panel Components
+     */
+    
     public void setHorizontalPanelComponents()
     {
         String buttonNames[] = {"Shop Name","Create Sales Invoice","Create Purchase Invoice","Log Out"};
@@ -99,6 +117,9 @@ public class DashBoardTemplate extends FrameSetup
         horizontalPanelButtons[3].setIcon(logoutButtonIcon);
     }    
         
+    /**
+     *  Sets Vertical Panel Components
+     */
     public void setVerticalPanelComponents()
     {
         ImageIcon icons[] = {homeButtonIcon,addCostButtonIcon,dailyIncomeCostButtonIcon,stockCheckButtonIcon,stockCheckButtonIcon,dueCheckButtonIcon,staffAttendanceButtonIcon,settingsButtonIcon};
@@ -117,8 +138,15 @@ public class DashBoardTemplate extends FrameSetup
         }
     }
     
+    /**
+     *  Sets ActionListeners For All Buttons
+     */
+    
     public void setActionListeners()
-    {        
+    {   
+        /**
+         *   Moving to Create Sales Invoice Page
+         */
         getButton("Create Sales Invoice").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -129,6 +157,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
          
+        /**
+         *   Moving to Create Purchase Invoice Page
+         */
         getButton("Create Purchase Invoice").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -139,6 +170,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         }); 
         
+        /**
+         *   Moving to Log Out Page
+         */
         getButton("Log Out").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -149,6 +183,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
         
+        /**
+         *   Moving to Home Page
+         */
         getButton("Home").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -159,6 +196,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
         
+        /**
+         *   Moving to Add Cost Page
+         */
         getButton("Add Cost").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -169,6 +209,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
         
+        /**
+         *   Moving to Daily Income Cost Page
+         */
         getButton("Daily Income Cost").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -179,7 +222,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
         
-        
+        /**
+         *   Moving to Due Check Page
+         */
         getButton("Due Check").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -189,7 +234,10 @@ public class DashBoardTemplate extends FrameSetup
                 frame.setVisible(true);
             }
         });
-         
+        
+        /**
+         *   Moving to Stock Check Page
+         */
         getButton("Stock Check").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -200,6 +248,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
         
+        /**
+         *   Moving to Advanced Stock Check Page
+         */
         getButton("Advanced Stock Check").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -210,6 +261,9 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
         
+        /**
+         *   Moving to Staff Attendance Page
+         */
         getButton("Staff Attendance").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
@@ -218,6 +272,10 @@ public class DashBoardTemplate extends FrameSetup
                     
                     String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
                 
+                /**
+                 * Verification Process
+                 * If Password Matches then Move Otherwise Show Invalid Password
+                 */   
                 if(userInput.equals("admin"))
                 {
                     dispose();
@@ -233,12 +291,20 @@ public class DashBoardTemplate extends FrameSetup
             }
         });
         
+        /**
+         *   Moving to Settings Page
+         */
         getButton("Settings").addActionListener(new ActionListener()
         {     
             public void actionPerformed(ActionEvent e)
             {
                 try{
                     String userInput = JOptionPane.showInputDialog(null, "Enter Admin Password", "Admin Access",JOptionPane.QUESTION_MESSAGE);
+                
+                /**
+                 * Verification Process
+                 * If Password Matches then Move Otherwise Show Invalid Password
+                 */
                 
                 if(userInput.equals("admin"))
                 {
@@ -256,6 +322,12 @@ public class DashBoardTemplate extends FrameSetup
          
     }
     
+    /**
+     * This Method Returns A JButton For A Specific Button Name
+     * 
+     * @param buttonName A Specific ButtonName
+     * @return A JButton
+     */
     public JButton getButton(String buttonName)
     {
         int i,j; JButton button = new JButton();

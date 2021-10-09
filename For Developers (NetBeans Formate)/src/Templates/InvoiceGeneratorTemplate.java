@@ -50,6 +50,13 @@ public class InvoiceGeneratorTemplate extends FrameSetup
 
     public Font font = new Font("Arial",Font.BOLD,16);
     
+    
+    /**
+     * Invoice Generator Constructor
+     * 
+     * @param keyword Keyword Determines this is Sales or Purchase Invoice
+     * @param fileName Sales or Purchase FileName or Writing Values
+     */
     public InvoiceGeneratorTemplate(String keyword,String fileName)
     {
         setFrame();
@@ -61,6 +68,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         setListeners(keyword,fileName);
     }
     
+    /**
+     * Sets Frame Basic Features
+     */
     public void setFrame()
     {
         super.setFrame();
@@ -68,6 +78,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         this.setLocationRelativeTo(null);
     }
     
+    /**
+     * Sets Container
+     */
     public void setContainer()
     {
         //Method Overriding Contept Used
@@ -75,6 +88,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         container.setLayout(new BorderLayout(15,0));
     }
     
+    /**
+     * Sets HorizontalPanelTop, HorizontalPanelBottom , MainPanel, InputPanel,OutputPanel
+     */
     public void setPanels()
     {
         nullLabel = new JLabel("");
@@ -106,6 +122,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         mainPanel.add(outputPanel);
     }
     
+    /**
+     * Sets All Buttons
+     */
     public void setButtons()
     {
         String horizontalPanelTopButtonNames[] = {"Home","Create Sales Invoice","Create Purchase Invoice","Log Out"};
@@ -139,6 +158,12 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         }
     }
     
+    /**
+     * Sets InputPanel According to Specific Sales or Purchase Keyword and Write Data In Specific File
+     * 
+     * @param keyword   Keyword Determines this is Sales or Purchase Invoice
+     * @param fileName  Sales or Purchase FileName or Writing Values
+     */
     public void setInputPanel(String keyword,String fileName)
     {   
         idLabel = new JLabel();
@@ -230,6 +255,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         
     }
     
+    /**
+     * Sets OutputPanel Components
+     */
     public void setOutputPanel()
     {
        cartEditorPane = new JEditorPane();
@@ -285,6 +313,12 @@ public class InvoiceGeneratorTemplate extends FrameSetup
        totalInformationPanel.add(totalDueTextField);
     }
     
+    
+    /**
+     * This Method Sets ID For Specific Sales or Purchase File
+     * 
+     * @param fileName 
+     */
     public void setId(String fileName)
     {
     try{
@@ -321,6 +355,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         }catch(Exception e){}
     }
     
+    /**
+     *  This Method Sets Payment Multiplying Quantity Value with Unit Price Value
+     */
     public void setPayment()
     {
         try{
@@ -339,6 +376,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         }  }catch(Exception ex) {}                 
     }
     
+    /**
+     *  This Method Sets Due Subtracting Total Paid Value From Total Payment
+     */
     public void setDue()
     {
         try{
@@ -356,6 +396,12 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         }  }catch(Exception ex) {}             
     }
     
+    /**
+     * This Method Returns A JButton of A Specific Button Name
+     * 
+     * @param buttonName
+     * @return A JButton of Specific Name
+     */
     public JButton getButton(String buttonName)
     {
         int i,j; JButton button = new JButton();
@@ -380,6 +426,11 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         return button;
     }
     
+    /**
+     * This Method Checks If All Data is given or Not
+     * 
+     * @return False if All Data Not Given Otherwise True
+     */
     public boolean checkAllFilledUp()
     {
         if("".equals(idTextField.getText())||"".equals(dateTextField.getText())||"".equals(nameTextField.getText())||"".equals(addressTextField.getText())||"".equals(mobileNumberTextField.getText())||"".equals(productTypeCombobox.getSelectedItem())||"".equals(modelNumberCombobox.getSelectedItem())||"".equals(quantityTextField.getText())||"".equals(unitPriceTextField.getText())||"".equals(paymentTextField.getText()))
@@ -392,6 +443,11 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         }
     }
     
+    /**
+     * This Method Adds Value TO The Cart and Stores Data in Specific File
+     * 
+     * @param fileName Sales or Purchase File Name
+     */
     public void addToCart(String fileName)
     {
         subtotal = subtotal + Integer.parseInt(paymentTextField.getText());
@@ -408,7 +464,11 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         totalPaidTextField.setText(""); 
     }
     
- 
+    /**
+     * This Method Adds HTML Begin Text For Design Purpose
+     * 
+     * @param keyword Keyword Determines this is Sales or Purchase Invoice
+     */
     public void addHTMLbegintext(String keyword)
     {
         htmlText = htmlText 
@@ -449,6 +509,9 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         rawData = rawData + idTextField.getText() +","+ dateTextField.getText() +","+ nameTextField.getText() +","+ addressTextField.getText() +","+ mobileNumberTextField.getText() +","+ productTypeCombobox.getSelectedItem() +","+ modelNumberCombobox.getSelectedItem() +","+ quantityTextField.getText() +","+ unitPriceTextField.getText() +","+ paymentTextField.getText()+"," ;
     }
     
+    /**
+     * This Method Adds HTML Middle Text For Design Purpose
+     */
     public void addHTMLmidtext()
     {
         htmlText = htmlText 
@@ -461,6 +524,10 @@ public class InvoiceGeneratorTemplate extends FrameSetup
 
     }
     
+    /**
+     * This Method Adds HTML End Text For Design Purpose
+     * @param keyword Keyword Determines this is Sales or Purchase Invoice
+     */
     public void addHTMLendtext(String keyword)
     {
         htmlText = htmlText 
@@ -495,6 +562,12 @@ public class InvoiceGeneratorTemplate extends FrameSetup
         rawData = rawData + totalPaymentTextField.getText() +","+totalPaidTextField.getText() +","+totalDueTextField.getText();
     }
     
+    /**
+     * This Method Sets Listeners For All Buttons and TextFields
+     * 
+     * @param keyword Keyword Determines this is Sales or Purchase Invoice
+     * @param fileName Sales or Purchase FileName or Writing Values
+     */
     public void setListeners(String keyword,String fileName)
     {
         nameTextField.addKeyListener(new KeyListener()

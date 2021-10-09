@@ -15,9 +15,13 @@ import javax.swing.JOptionPane;
 
 public class FrameSetup extends JFrame 
 {
-    public Container container;
-    public JLabel nullLabel;
+    public Container container;    //Frame Container Declaration  
+    public JLabel nullLabel;       //Declaring NullLabel For Design Perpouse
     
+    
+    /**
+     * Declaring All Icons
+     */
     public ImageIcon  displayPicture = new ImageIcon(this.getClass().getResource("/Pictures/displayPicture.png"));
     public ImageIcon  loginButtonIcon = new ImageIcon(this.getClass().getResource("/Pictures/loginButtonIcon.png"));
     public ImageIcon  shopNameButtonIcon = new ImageIcon(this.getClass().getResource("/Pictures/shopNameButtonIcon.png"));
@@ -37,13 +41,19 @@ public class FrameSetup extends JFrame
     public ImageIcon  deleteButtonIcon = new ImageIcon(this.getClass().getResource("/Pictures/deleteButtonIcon.png"));
     
     
+    /**
+     *  FrameSetup Constructor
+     */
     public FrameSetup()
     {
-        setFrame();
+        setFrame();  
         setContainer();
         setAppIcon();
     }
     
+    /**
+     *  Sets Frame Basic Features
+     */
     public void setFrame()
     {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,19 +62,29 @@ public class FrameSetup extends JFrame
         this.setTitle("SHOP ASSISTANT");
     }
     
+    /**
+     *  Sets Container
+     */
     public void setContainer()
     {
         container = this.getContentPane();
         container.setBackground(Color.WHITE);
     }
     
-    
+    /**
+     *  Sets Application Icon
+     */
     public void setAppIcon()
     {
         ImageIcon logo = new ImageIcon(this.getClass().getResource("/Pictures/shoppingCart.png"));
         this.setIconImage(logo.getImage());
     }
     
+    /**
+     * This Method returns date as a string
+     * 
+     * @return date Instant time and Date
+     */
     public String setDate()
     {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy E hh:mm:ss a");
@@ -72,6 +92,12 @@ public class FrameSetup extends JFrame
         return sdf.format(date);
     }
     
+    
+    /**
+     * This Method Returns A String Array of All Models Numbers
+     * 
+     * @return String Array of Model Number
+     */
     public String[] setProductTypes()
     {
         String productType[] = new String[80];
@@ -100,6 +126,11 @@ public class FrameSetup extends JFrame
         return productType;
     }
    
+    /**
+     * @param character Any Character
+     * @return True if Character is Digit
+     */
+    
     public boolean isDigit(char character)
     {
        if(character!='0'&&character!='1'&&character!='2'&&character!='3'&&character!='4'&&character!='5'&&character!='6'&&character!='7'&&character!='8'&&character!='9'&&character!=(char)8&&character!=(char)10)
@@ -112,11 +143,21 @@ public class FrameSetup extends JFrame
        }
     }
     
+    /**
+     * This Method Shows A Reminder to Print Invoice
+     */
     public void setReminder()
     {
         JOptionPane.showMessageDialog(null, "Remember to Print");
     }
     
+    /**
+     * This Method shows Remaining Quantity For a Specific ModelNumber And Data Stored At a Specific File
+     * 
+     * @param modelNumber  A Model Number
+     * @param filename     A FileName  
+     * @return Remaining Quantity
+     */
     public int getRemainingQuantity(String modelNumber,String filename)
     {
         boolean found = false;
@@ -189,6 +230,14 @@ public class FrameSetup extends JFrame
         }
     }
     
+    /**
+     * This Method shows Remaining Quantity For a Specific ModelNumber, Date And Data Stored At a Specific File
+     * 
+     * @param date   A Date
+     * @param modelNumber ModelNumber
+     * @param filename FileName
+     * @return Remaining Quantity
+     */
     public int getRemainingQuantityUsingDate(String date,String modelNumber,String filename)
     {
         int modelCount = 0,quantityStringIndex;
@@ -225,7 +274,14 @@ public class FrameSetup extends JFrame
         }
     }
     
-    
+    /**
+     * This Method Shows Exact Quantity After Subtracting SoldItem From Purchased Item
+     * 
+     * @param modelNumber  A Model Number
+     * @param purchaseFilename  Purchase File Name
+     * @param salesFilename Sales File Name
+     * @return Quantity
+     */
     public int getTotalStock(String modelNumber,String purchaseFilename,String salesFilename)
     {  
         int productSold = getRemainingQuantity(modelNumber,salesFilename);
@@ -233,6 +289,12 @@ public class FrameSetup extends JFrame
         
         return (productPurchased-productSold);
     }
+    
+    /**
+     * This Method Shows Password From File as String
+     * 
+     * @return Password
+     */
     
     public String getPassword()
     {
