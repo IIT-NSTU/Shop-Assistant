@@ -46,7 +46,7 @@ public class StaffAttendancePage extends DashBoardTemplate
         setPageButton();
         setMainPanel();
         setCenterPanel();
-       setStaffAttendanceFeatures();
+        setStaffAttendanceFeatures();
     }
     
     /**
@@ -54,9 +54,9 @@ public class StaffAttendancePage extends DashBoardTemplate
      */
     public void setPageButton()
     {
-        getButton("Staff Attendence").setBackground(Color.LIGHT_GRAY);
-        getButton("Staff Attendence").setForeground(Color.BLACK);
-        getButton("Staff Attendence").setFont(new Font("Arial",Font.BOLD,16));
+        getButton("Staff Attendance").setBackground(Color.LIGHT_GRAY);
+        getButton("Staff Attendance").setForeground(Color.BLACK);
+        getButton("Staff Attendance").setFont(new Font("Arial",Font.BOLD,16));
     }
     
     /**
