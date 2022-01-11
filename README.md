@@ -21,33 +21,48 @@ In Digital Bangladesh regarding business sector, sometimes a shopkeeper needs so
 ```
   Loading Page
 ```
- ![Loading Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/LoadingPage.png)
+ ![Loading Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/LoadingPage.png)
  ```
   Login Page
   ```
- ![Login Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/LoginPage.png)
+ ![Login Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/LoginPage.png)
  ```
   Home Page
   ```
- ![Home Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/HomePage.png)
+ ![Home Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/HomePage.png)
  ```
   Sales Invoice Making Page
   ```
- ![Invoice Making Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/InvoiceMakingPage.png)
+ ![Invoice Making Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/CreateSalesInvoicePage.png)
+ 
+ ```
+  Purchase Invoice Making Page
+  ```
+ ![Invoice Making Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/CreatePurchaseInvoicePage.png)
  
 ```
   Add Cost Page
 ```
  
- ![Add Cost Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/AddCostPage.png)
+ ![Add Cost Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/AddCostPage.png)
  ```
-  Stock Check Page
+  Advanced Stock Check Page
   ```
- ![Stock Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/StockCheckPage.png)
+ ![Stock Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/AdvancesStockCheckPage.png)
   ```
   Due Check Page
   ```
- ![Due Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/src/Pictures/DueCheckPage.png)
+ ![Due Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/DueCheckPage.png)
+ 
+ ```
+  Staff Attendance Page
+  ```
+ ![Due Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/StaffAttendancePage.png)
+ 
+ ```
+  Settings Page
+  ```
+ ![Due Check Page](https://github.com/IIT-NSTU/Shop-Assistant/blob/master/For%20Developers%20(NetBeans%20Formate)/src/Pictures/SettingsPage.png)
 
  
  ## Getting started
